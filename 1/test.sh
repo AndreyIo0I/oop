@@ -24,10 +24,10 @@ else
     printf '!!!one-line test failed\n'
 fi
 
-./cmake-build-debug/copyfile /tmp/output.txt
+./cmake-build-debug/copyfile /tmp/output.txt >/dev/null
 if [ $? -eq 1 ] 
 then
-    printf '+++last test passed\n'
+    printf '+++missing-arg test passed\n'
 else
-    printf '!!!last test failed\n'
+    printf '!!!missing-arg test failed\n'
 fi
