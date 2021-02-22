@@ -39,3 +39,11 @@ then
 else
     printf '!!! long test failed\n'
 fi
+
+./cmake-build-debug/flipbyte y >/dev/null
+if [ $? -eq 1 ]
+then
+    printf '+++ y test passed\n'
+else
+    printf '!!! y test failed\n'
+fi
