@@ -12,7 +12,14 @@ std::optional<int> ParseArgs(int argc, char* argv[])
         return std::nullopt;
     }
 
-    int number = std::stoi(argv[1]);
+    int number;
+    try
+    {
+        number = std::stoi(argv[1]);
+    }
+    catch (const std::string& err) {
+        std::cout << "Input must be a decimal number between 0 and 255\n";
+    }
 
     if ((number < 0) || (number > 255))
     {
