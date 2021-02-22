@@ -17,7 +17,7 @@ std::optional<int> ParseArgs(int argc, char* argv[])
     {
         number = std::stoi(argv[1]);
     }
-    catch (...) {
+    catch (std::exception& e) {
         std::cout << "Input must be a decimal number\n";
         return std::nullopt;
     }
