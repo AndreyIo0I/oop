@@ -1,7 +1,7 @@
 #!/bin/bash
 
 output=$(./cmake-build-debug/flipbyte 6)
-if [ $output == 96 ]
+if [ "$output" == 96 ]
 then
     printf '+++ 6 96 test passed\n'
 else
@@ -9,7 +9,7 @@ else
 fi
 
 output=$(./cmake-build-debug/flipbyte 0)
-if [ $output == 0 ]
+if [ "$output" == 0 ]
 then
     printf '+++ 0 0 test passed\n'
 else
@@ -17,7 +17,7 @@ else
 fi
 
 output=$(./cmake-build-debug/flipbyte 255)
-if [ $output == 255 ]
+if [ "$output" == 255 ]
 then
     printf '+++ 255 255 test passed\n'
 else
