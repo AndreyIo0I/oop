@@ -1,33 +1,41 @@
 #!/bin/bash
 
-./cmake-build-debug/copyfile ./multiline.txt /tmp/output.txt
-if cmp ./multiline.txt /tmp/output.txt;
+output=$(./cmake-build-debug/flipbyte 6)
+if [ $output == 96 ]
 then
-    printf '+++multiline test passed\n'
+    printf '+++ 6 96 test passed\n'
 else
-    printf '!!!multiline test failed\n'
+    printf '!!! 6 96 test failed\n'
 fi
 
-./cmake-build-debug/copyfile ./empty.txt /tmp/output.txt
-if cmp ./empty.txt /tmp/output.txt;
+output=$(./cmake-build-debug/flipbyte 0)
+if [ $output == 0 ]
 then
-    printf '+++empty test passed\n'
+    printf '+++ 0 0 test passed\n'
 else
-    printf '!!!empty test failed\n'
+    printf '!!! 0 0 test failed\n'
 fi
 
-./cmake-build-debug/copyfile ./one-line.txt /tmp/output.txt
-if cmp ./one-line.txt /tmp/output.txt;
+output=$(./cmake-build-debug/flipbyte 255)
+if [ $output == 255 ]
 then
-    printf '+++one-line test passed\n'
+    printf '+++ 255 255 test passed\n'
 else
-    printf '!!!one-line test failed\n'
+    printf '!!! 255 255 test failed\n'
 fi
 
-./cmake-build-debug/copyfile /tmp/output.txt >/dev/null
-if [ $? -eq 1 ] 
+./cmake-build-debug/flipbyte 1235465 >/dev/null
+if [ $? -eq 1 ]
 then
-    printf '+++missing-arg test passed\n'
+    printf '+++ long test passed\n'
 else
-    printf '!!!missing-arg test failed\n'
+    printf '!!! long test failed\n'
+fi
+
+./cmake-build-debug/flipbyte 1235465 54698 >/dev/null
+if [ $? -eq 1 ]
+then
+    printf '+++ long test passed\n'
+else
+    printf '!!! long test failed\n'
 fi

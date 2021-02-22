@@ -1,6 +1,7 @@
 #include <iostream>
 #include <optional>
 #include <string>
+#include <cmath>
 
 std::optional<int> ParseArgs(int argc, char* argv[])
 {
