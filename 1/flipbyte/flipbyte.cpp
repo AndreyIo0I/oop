@@ -32,8 +32,8 @@ int main(int argc, char* argv[])
     {
         return 1;
     }
-    int number = optionalNumber.value();
 
+    int number = optionalNumber.value();
     for (int i = 0; i < 8; i++)
     {
         flippedNumber += (number & ((int) pow(2, i)))
