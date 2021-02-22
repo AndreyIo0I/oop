@@ -44,8 +44,8 @@ int main(int argc, char* argv[])
     int number = optionalNumber.value();
     for (int i = 0; i < 8; i++)
     {
-        flippedNumber += (number & ((int) pow(2, i)))
-            ? (int) pow(2, 7 - i)
+        flippedNumber += (number & (1 << i))
+            ? (1 << (7 - i))
             : 0;
     }
 
