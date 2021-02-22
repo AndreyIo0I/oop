@@ -19,6 +19,7 @@ std::optional<int> ParseArgs(int argc, char* argv[])
     }
     catch (const std::string& err) {
         std::cout << "Input must be a decimal number\n";
+        return std::nullopt;
     }
 
     if ((number < 0) || (number > 255))
