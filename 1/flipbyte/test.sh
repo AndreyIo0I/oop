@@ -47,3 +47,5 @@ then
 else
     printf '!!! y test failed\n'
 fi
+
+read -n 1 -p "(нажмите любую клавишу для завершения)"
