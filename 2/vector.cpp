@@ -1,13 +1,52 @@
-#define CATCH_CONFIG_MAIN
-#include "../catch.hpp"
+#include <vector>
+#include <iostream>
+#include <cmath>
+#include <algorithm>
 
-unsigned int Factorial( unsigned int number ) {
-    return number <= 1 ? number : Factorial(number-1)*number;
+using namespace std;
+
+void addMean(vector<float> &v) {
+    int amount = 0;
+    float mean = 0;
+    for (float x : v) {
+        if (x > 0)
+        {
+            mean += trunc(x * 1000) / 1000;
+            amount++;
+        }
+    }
+    if (amount > 0)
+        mean /= amount;
+    for (auto x = v.begin(); x < v.end(); x++)
+        *x += mean;
 }
 
-TEST_CASE( "Factorials are computed", "[factorial]" ) {
-    REQUIRE( Factorial(1) == 1 );
-    REQUIRE( Factorial(2) == 2 );
-    REQUIRE( Factorial(3) == 6 );
-    REQUIRE( Factorial(10) == 3628800 );
+void readVector(vector<float> &v)
+{
+    float x;
+
+    while (cin >> x)
+        v.push_back(x);
+}
+
+void printAscVector(vector<float> &v)
+{
+    if (!v.empty())
+    {
+        sort(v.begin(), v.end());
+        cout << *v.begin();
+        for (auto x = ++v.begin(); x < v.end(); x++)
+            cout << " " << *x;
+    }
+    cout << "\n";
+}
+
+int main() {
+    vector<float> v;
+
+    readVector(v);
+    addMean(v);
+    printAscVector(v);
+
+    return 0;
 }
