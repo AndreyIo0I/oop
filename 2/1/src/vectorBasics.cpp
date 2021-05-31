@@ -1,4 +1,3 @@
-#include "vectorBasics.h"
 #include <vector>
 #include <iostream>
 #include <algorithm>
@@ -43,14 +42,4 @@ void printAscVector(vector<float> & v)
             cout << ' ' << *x;
     }
     cout << '\n';
-}
-
-int main() {
-    vector<float> v;
-
-    readVector(v);
-    addMeanOfPositiveElements(v);
-    printAscVector(v);
-
-    return 0;
 }

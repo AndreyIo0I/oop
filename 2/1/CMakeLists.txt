@@ -1,7 +1,14 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.14)
 project(oop)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 
-add_executable(main vectorBasics.cpp)
-add_subdirectory(tests)
+set(SOURCE_FILES main.cpp)
+add_executable(main ${SOURCE_FILES})
+
+include_directories(src)
+add_subdirectory(src)
+
+target_link_libraries(main src_lib)
+
+add_subdirectory(Catch_tests)
