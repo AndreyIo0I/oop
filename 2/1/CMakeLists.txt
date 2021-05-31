@@ -3,4 +3,5 @@ project(oop)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(vector vector.cpp)
+add_executable(main vectorBasics.cpp)
+add_subdirectory(tests)

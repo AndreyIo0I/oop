@@ -1,27 +1,31 @@
+#include "vectorBasics.h"
 #include <vector>
 #include <iostream>
-#include <cmath>
 #include <algorithm>
 
 using namespace std;
 
-void addMean(vector<float> &v) {
+void addMeanOfPositiveElements(vector<float> & v)
+{
     int amount = 0;
-    float mean = 0;
-    for (float x : v) {
+    float sumOfPositiveElements = 0;
+    for (auto x : v)
+    {
         if (x > 0)
         {
-            mean += trunc(x * 1000) / 1000;
+            sumOfPositiveElements += x;
             amount++;
         }
     }
     if (amount > 0)
-        mean /= amount;
-    for (auto x = v.begin(); x < v.end(); x++)
-        *x += mean;
+    {
+        float mean = sumOfPositiveElements / static_cast<float>(amount);
+        for (auto & x : v)
+            x += mean;
+    }
 }
 
-void readVector(vector<float> &v)
+void readVector(vector<float> & v)
 {
     float x;
 
@@ -29,23 +33,23 @@ void readVector(vector<float> &v)
         v.push_back(x);
 }
 
-void printAscVector(vector<float> &v)
+void printAscVector(vector<float> & v)
 {
     if (!v.empty())
     {
         sort(v.begin(), v.end());
         cout << *v.begin();
         for (auto x = ++v.begin(); x < v.end(); x++)
-            cout << " " << *x;
+            cout << ' ' << *x;
     }
-    cout << "\n";
+    cout << '\n';
 }
 
 int main() {
     vector<float> v;
 
     readVector(v);
-    addMean(v);
+    addMeanOfPositiveElements(v);
     printAscVector(v);
 
     return 0;
