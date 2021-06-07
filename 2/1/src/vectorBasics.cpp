@@ -1,6 +1,5 @@
 #include <vector>
 #include <iostream>
-#include <algorithm>
 
 using namespace std;
 
@@ -32,13 +31,12 @@ void readVector(vector<float> & v)
         v.push_back(x);
 }
 
-void printAscVector(vector<float> & v)
+void printVector(vector<float> &v)
 {
     if (!v.empty())
     {
-        sort(v.begin(), v.end());
         cout << *v.begin();
-        for (auto x = ++v.begin(); x < v.end(); x++)
+        for (auto x = ++v.begin(); x < v.end(); ++x)
             cout << ' ' << *x;
     }
     cout << '\n';

@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "../src/vectorBasics.h"
 
-SCENARIO("basics of work with vector", "[vector]")
+SCENARIO("Basics of work with vector")
 {
     GIVEN("a vector with some items")
     {
