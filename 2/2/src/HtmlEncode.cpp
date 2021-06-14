@@ -6,7 +6,6 @@ using namespace std;
 string HtmlEncode(const std::string & text)
 {
 	string encodedText;
-	encodedText.reserve(text.length() * 2);
 
 	for (auto ch : text)
 	{
