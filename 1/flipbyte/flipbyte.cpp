@@ -30,7 +30,7 @@ std::optional<int> ParseArgs(int argc, char* argv[])
     return number;
 }
 
-int flip(int number) {
+int Flip(int number) {
     int flippedNumber = 0;
     for (int i = 0; i < 8; i++)
     {
@@ -53,7 +53,7 @@ int main(int argc, char* argv[])
 
     int number = optionalNumber.value();
     int flippedNumber = 0;
-    flippedNumber = flip(number);
+    flippedNumber = Flip(number);
 
     std::cout << flippedNumber << "\n";
 

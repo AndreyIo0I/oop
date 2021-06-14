@@ -10,7 +10,7 @@ SCENARIO("Basics of work with vector")
 		std::vector<float> v2 = { 3.00, 5.00, 4.00 };
         WHEN("addMeanOfPositiveElements(vector) is called")
         {
-            addMeanOfPositiveElements(v);
+            AddMeanOfPositiveElements(v);
 
             THEN("the v items increase on the mean of the positive elements")
             {
@@ -25,7 +25,7 @@ SCENARIO("Basics of work with vector")
         std::vector<float> v2 = {};
         WHEN("addMeanOfPositiveElements(vector) is called")
         {
-            addMeanOfPositiveElements(v);
+            AddMeanOfPositiveElements(v);
 
             THEN("vector is still empty")
             {

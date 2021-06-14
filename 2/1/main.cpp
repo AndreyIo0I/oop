@@ -8,10 +8,10 @@ int main()
 {
     vector<float> v;
 
-    readVector(v);
-    addMeanOfPositiveElements(v);
+    ReadVector(v);
+    AddMeanOfPositiveElements(v);
 	sort(v.begin(), v.end());
-	printVector(v);
+	PrintVector(v);
 
     return 0;
 }

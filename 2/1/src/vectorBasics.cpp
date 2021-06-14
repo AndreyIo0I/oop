@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void addMeanOfPositiveElements(vector<float> & v)
+void AddMeanOfPositiveElements(vector<float> & v)
 {
     int amount = 0;
     float sumOfPositiveElements = 0;
@@ -23,7 +23,7 @@ void addMeanOfPositiveElements(vector<float> & v)
     }
 }
 
-void readVector(vector<float> & v)
+void ReadVector(vector<float> & v)
 {
     float x;
 
@@ -31,7 +31,7 @@ void readVector(vector<float> & v)
         v.push_back(x);
 }
 
-void printVector(vector<float> &v)
+void PrintVector(vector<float> &v)
 {
     if (!v.empty())
     {
