@@ -5,10 +5,7 @@ using namespace std;
 
 int main()
 {
-	string line;
-
-	while (getline(cin, line))
-		cout << HtmlEncode(line) << '\n';
+	HtmlEncodeMultiLines(cin, cout);
 
     return 0;
 }

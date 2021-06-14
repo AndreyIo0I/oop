@@ -4,6 +4,8 @@
 
 SCENARIO("HtmlEncode")
 {
+	std::ostringstream output;
+
     GIVEN("an empty string")
     {
         std::string emptyString;
@@ -31,4 +33,17 @@ SCENARIO("HtmlEncode")
             }
         }
     }
+
+	GIVEN("some strings with special symbols")
+	{
+		std::string inputString = "a<\n>b";
+		WHEN("HtmlEncodeMultiLines is called")
+		{
+			THEN("encoded strings returned")
+			{
+				HtmlEncodeMultiLines(input, output);
+				REQUIRE(resultString == "a&lt;\n&gt;b");
+			}
+		}
+	}
 }

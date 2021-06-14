@@ -32,3 +32,11 @@ string HtmlEncode(const std::string & text)
 
 	return encodedText;
 }
+
+void HtmlEncodeMultiLines(std::istream& input, std::ostream& output)
+{
+	string line;
+
+	while (getline(input, line))
+		output << HtmlEncode(line) << '\n';
+}
