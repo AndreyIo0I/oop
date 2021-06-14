@@ -1,0 +1,2 @@
+add_executable(tests CountWordOccurrences_tests.cpp)
+target_link_libraries(tests src_lib)
