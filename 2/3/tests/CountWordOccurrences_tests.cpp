@@ -2,7 +2,7 @@
 #include "catch.hpp"
 #include "../src/CountWordOccurrences.h"
 
-SCENARIO("HtmlEncode")
+SCENARIO("CountWordOccurrences")
 {
 	std::ostringstream output;
     GIVEN("an empty string")
