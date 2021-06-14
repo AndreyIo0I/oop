@@ -36,13 +36,13 @@ SCENARIO("HtmlEncode")
 
 	GIVEN("some strings with special symbols")
 	{
-		std::string inputString = "a<\n>b";
+		std::istringstream input("a<\n>b");
 		WHEN("HtmlEncodeMultiLines is called")
 		{
 			THEN("encoded strings returned")
 			{
 				HtmlEncodeMultiLines(input, output);
-				REQUIRE(resultString == "a&lt;\n&gt;b");
+				REQUIRE(output.str() == "a&lt;\n&gt;b\n");
 			}
 		}
 	}
