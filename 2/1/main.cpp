@@ -1,17 +1,11 @@
-#include <vector>
-#include <algorithm>
+#include <iostream>
 #include "src/vectorBasics.h"
 
 using namespace std;
 
 int main()
 {
-    vector<float> v;
-
-    ReadVector(v);
-    AddMeanOfPositiveElements(v);
-	sort(v.begin(), v.end());
-	PrintVector(v);
+	GetSortedModifiedVector(cin, cout);
 
     return 0;
 }

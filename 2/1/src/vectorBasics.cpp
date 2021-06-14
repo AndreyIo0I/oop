@@ -1,5 +1,6 @@
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -23,21 +24,31 @@ void AddMeanOfPositiveElements(vector<float> & v)
     }
 }
 
-void ReadVector(vector<float> & v)
+void ReadVector(std::istream & input, vector<float> & v)
 {
     float x;
 
-    while (cin >> x)
+    while (input >> x)
         v.push_back(x);
 }
 
-void PrintVector(vector<float> &v)
+void PrintVector(std::ostream & output, vector<float> & v)
 {
     if (!v.empty())
     {
-        cout << *v.begin();
+        output << *v.begin();
         for (auto x = ++v.begin(); x < v.end(); ++x)
-            cout << ' ' << *x;
+            output << ' ' << *x;
+		output << '\n';
     }
-    cout << '\n';
+}
+
+void GetSortedModifiedVector(std::istream & input, std::ostream & output)
+{
+    vector<float> v;
+
+    ReadVector(input, v);
+    AddMeanOfPositiveElements(v);
+    sort(v.begin(), v.end());
+    PrintVector(output, v);
 }

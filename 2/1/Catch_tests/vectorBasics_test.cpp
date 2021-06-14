@@ -4,32 +4,32 @@
 
 SCENARIO("Basics of work with vector")
 {
+	std::ostringstream output;
+
+	GIVEN("an empty vector")
+	{
+		std::istringstream input;
+		WHEN("GetSortedModifiedVector is called")
+		{
+			GetSortedModifiedVector(input, output);
+
+			THEN("output is empty")
+			{
+				CHECK(output.str().empty());
+			}
+		}
+	}
+
     GIVEN("a vector with some items")
     {
-        std::vector<float> v = { 1.00, 3.00, 2.00 };
-		std::vector<float> v2 = { 3.00, 5.00, 4.00 };
-        WHEN("addMeanOfPositiveElements(vector) is called")
+		std::istringstream input("1.2 3.2 2.2 -7");
+        WHEN("GetSortedModifiedVector is called")
         {
-            AddMeanOfPositiveElements(v);
+			GetSortedModifiedVector(input, output);
 
-            THEN("the v items increase on the mean of the positive elements")
+            THEN("items increased on the mean of the positive elements")
             {
-                REQUIRE(v == v2);
-            }
-        }
-    }
-
-    GIVEN("an empty vector")
-    {
-        std::vector<float> v = {};
-        std::vector<float> v2 = {};
-        WHEN("addMeanOfPositiveElements(vector) is called")
-        {
-            AddMeanOfPositiveElements(v);
-
-            THEN("vector is still empty")
-            {
-                REQUIRE(v == v2);
+                CHECK(output.str() == "-4.8 3.4 4.4 5.4\n");
             }
         }
     }

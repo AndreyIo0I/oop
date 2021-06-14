@@ -1,3 +1,3 @@
 #include <string>
 
-std::string CountWordOccurrences(std::istream& input, std::ostream& output);
+void CountWordOccurrences(std::istream& input, std::ostream& output);
