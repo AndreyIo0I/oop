@@ -1,5 +1,3 @@
-#define CATCH_CONFIG_MAIN
-
 #include <TVSet.h>
 #include <RemoteControl.h>
 #include "catch.hpp"
