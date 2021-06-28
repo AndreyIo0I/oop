@@ -1,6 +1,6 @@
+#include "catch.hpp"
 #include <Car.h>
 #include <ConsoleControl.h>
-#include "catch.hpp"
 
 using namespace std;
 

@@ -51,7 +51,8 @@ bool CConsoleControl::HandleCommand()
 void CConsoleControl::EngineOn(std::istream& /*args*/)
 {
 	m_car.TurnOnEngine();
-	m_output << "Engine is turned on" << "\n";
+	m_output << "Engine is turned on"
+			 << "\n";
 }
 
 void CConsoleControl::EngineOff(std::istream& /*args*/)

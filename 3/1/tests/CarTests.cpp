@@ -1,21 +1,21 @@
 #define CATCH_CONFIG_MAIN
 
-#include <Car.h>
 #include "catch.hpp"
+#include <Car.h>
 
 SCENARIO("Using Car")
 {
 	CCar car;
 
-    GIVEN("new car")
-    {
-        WHEN("we call IsTurnedOn()")
-        {
-            THEN("car is turned off")
-            {
-                REQUIRE(!car.IsTurnedOn());
-            }
-        }
+	GIVEN("new car")
+	{
+		WHEN("we call IsTurnedOn()")
+		{
+			THEN("car is turned off")
+			{
+				REQUIRE(!car.IsTurnedOn());
+			}
+		}
 
 		WHEN("we call GetSpeed()")
 		{
