@@ -1,2 +1,2 @@
-add_executable(tests TVSetTests.cpp RemoteControlTests.cpp)
+add_executable(tests CarTests.cpp ConsoleControlTests.cpp)
 target_link_libraries(tests src_lib)

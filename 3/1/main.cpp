@@ -1,18 +1,18 @@
+#include <Car.h>
+#include <ConsoleControl.h>
 #include <iostream>
-#include <TVSet.h>
-#include <RemoteControl.h>
 
 using namespace std;
 
 int main()
 {
-	CTVSet tv;
-	CRemoteControl remoteControl(tv, cin, cout);
+	CCar car;
+	CConsoleControl consoleControl(car, cin, cout);
 
 	while (!cin.eof() && !cin.fail())
 	{
 		cout << "> ";
-		if (!remoteControl.HandleCommand())
+		if (!consoleControl.HandleCommand())
 		{
 			cout << "Unknown command!" << endl;
 		}
