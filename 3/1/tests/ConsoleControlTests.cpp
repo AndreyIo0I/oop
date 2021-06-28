@@ -48,6 +48,18 @@ SCENARIO("Using RemoteControl")
 			}
 		}
 
+		WHEN("we handle SetGear")
+		{
+			istringstream input("SetGear 0\n");
+			ostringstream output("");
+			CConsoleControl remoteControl(car, input, output);
+			remoteControl.HandleCommand();
+			THEN("gear is 0")
+			{
+				REQUIRE(output.str() == "Selected gear: 0\n");
+			}
+		}
+
 		WHEN("we handle Info again")
 		{
 			istringstream input("Info\n");
