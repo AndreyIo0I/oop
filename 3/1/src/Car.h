@@ -22,8 +22,7 @@ public:
 	bool SetSpeed(int speed);
 
 private:
-	bool m_isOn = false;
+	bool m_isEngineOn = false;
 	int m_gear = 0;
 	int m_speed = 0;
-	CDirection m_direction = CDirection::standing;
 };

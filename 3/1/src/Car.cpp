@@ -2,7 +2,7 @@
 
 bool CCar::IsTurnedOn() const
 {
-	return m_isOn;
+	return m_isEngineOn;
 }
 
 CDirection CCar::GetDirection() const
@@ -30,7 +30,7 @@ int CCar::GetGear() const
 
 bool CCar::TurnOnEngine()
 {
-	m_isOn = true;
+	m_isEngineOn = true;
 	return true;
 }
 
@@ -38,7 +38,7 @@ bool CCar::TurnOffEngine()
 {
 	if (m_speed == 0 && m_gear == 0)
 	{
-		m_isOn = false;
+		m_isEngineOn = false;
 		return true;
 	}
 	return false;
@@ -69,7 +69,7 @@ bool gearInSpeedRange(int gear, int speed)
 
 bool CCar::SetGear(int gear)
 {
-	if (m_isOn)
+	if (m_isEngineOn)
 	{
 		if (gear != m_gear && !gearInSpeedRange(gear, m_speed) || gear == -1 && m_speed != 0)
 			return false;
@@ -84,7 +84,7 @@ bool CCar::SetGear(int gear)
 
 bool CCar::SetSpeed(int speed)
 {
-	if (m_isOn && speed >= 0)
+	if (m_isEngineOn && speed >= 0)
 	{
 		if (m_gear == 0 && speed > abs(m_speed))
 			return false;
