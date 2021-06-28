@@ -11,4 +11,5 @@ public:
 	double x, y, z;
 
 	friend std::ostream& operator<<(std::ostream& os, const CVector3D& v);
+	friend std::istream& operator<<(std::istream& is, const CVector3D& v);
 };

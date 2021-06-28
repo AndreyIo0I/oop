@@ -36,3 +36,9 @@ ostream& operator<<(ostream& os, const CVector3D& v)
 	os << v.x << ", " << v.y << ", " << v.z << '\n';
 	return os;
 }
+
+istream& operator<<(istream& is, CVector3D& v)
+{
+	is >> v.x >> v.y >> v.z;
+	return is;
+}
