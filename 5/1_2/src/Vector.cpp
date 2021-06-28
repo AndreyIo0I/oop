@@ -33,6 +33,6 @@ void CVector3D::Normalize()
 
 ostream& operator<<(ostream& os, const CVector3D& v)
 {
-	os << '(' << v.x << ", " << v.y << ", " << v.z << ')';
+	os << v.x << ", " << v.y << ", " << v.z << '\n';
 	return os;
 }
