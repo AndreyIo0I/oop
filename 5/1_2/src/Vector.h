@@ -1,22 +1,14 @@
 #pragma once
+#include <iostream>
 
 class CVector3D
 {
 public:
-	// Конструирует нулевой вектор
 	CVector3D();
-
-	// Конструирует вектор с заданными координатами
 	CVector3D(double x0, double y0, double z0);
-
-	// Возвращает длину вектора
 	double GetLength() const;
-
-	// Нормализует вектор (приводит его к единичной длине)
 	void Normalize();
-
-	// Другие методы и операции класса
-
-	// В данном случае данные можно сделать публичными
 	double x, y, z;
+
+	friend std::ostream& operator<<(std::ostream& os, const CVector3D& v);
 };

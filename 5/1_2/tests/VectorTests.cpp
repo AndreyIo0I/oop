@@ -5,6 +5,8 @@
 
 SCENARIO("Using Car")
 {
+	CVector3D v;
+
 	GIVEN("turned off car")
 	{
 		WHEN("we call GetSpeed()")
