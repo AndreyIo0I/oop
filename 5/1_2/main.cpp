@@ -5,9 +5,7 @@ using namespace std;
 
 int main()
 {
-	CVector3D v(1, 2, 3);
-	v.Normalize();
-	cout << v.GetLength() << '\n';
-	cout << v;
+	CVector3D v(0.1, 0.2, 0.3);
+	cout << (v * 2.00) << '\n';
 	return 0;
 }

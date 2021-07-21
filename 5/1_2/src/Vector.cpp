@@ -18,6 +18,86 @@ CVector3D::CVector3D(double x0, double y0, double z0)
 {
 }
 
+CVector3D CVector3D::operator-() const
+{
+	return {-x, -y, -z};
+}
+
+CVector3D CVector3D::operator+() const
+{
+	return {x, y, z};
+}
+
+CVector3D CVector3D::operator-(const CVector3D& v) const
+{
+	return {x - v.x, y - v.y, z - v.z};
+}
+
+CVector3D CVector3D::operator+(const CVector3D& v) const
+{
+	return {x + v.x, y + v.y, z + v.z};
+}
+
+bool almostEqual(double a, double b)
+{
+	return abs(a - b) <= numeric_limits<double>::epsilon();
+}
+
+bool CVector3D::operator==(const CVector3D& v) const
+{
+	return (almostEqual(x, v.x) && almostEqual(y, v.y) && almostEqual(z, v.z));
+}
+
+bool CVector3D::operator!=(const CVector3D& v) const
+{
+	return !(*this == v);
+}
+
+void CVector3D::operator+=(const CVector3D& v)
+{
+	x += v.x;
+	y += v.y;
+	z += v.z;
+}
+
+void CVector3D::operator-=(const CVector3D& v)
+{
+	x -= v.x;
+	y -= v.y;
+	z -= v.z;
+}
+
+void CVector3D::operator/=(double value)
+{
+	x /= value;
+	y /= value;
+	z /= value;
+}
+
+void CVector3D::operator*=(double value)
+{
+	x *= value;
+	y *= value;
+	z *= value;
+}
+
+CVector3D operator*(const CVector3D& v, double value)
+{
+	return {v.x * value, v.y * value, v.z * value};
+}
+
+ostream& operator<<(ostream& os, const CVector3D& v)
+{
+	os << v.x << ", " << v.y << ", " << v.z;
+	return os;
+}
+
+istream& operator>>(istream& is, CVector3D& v)
+{
+	is >> v.x >> v.y >> v.z;
+	return is;
+}
+
 double CVector3D::GetLength() const
 {
 	return sqrt(x * x + y * y + z * z);
@@ -26,19 +106,6 @@ double CVector3D::GetLength() const
 void CVector3D::Normalize()
 {
 	double length = this->GetLength();
-	x /= length;
-	y /= length;
-	z /= length;
-}
-
-ostream& operator<<(ostream& os, const CVector3D& v)
-{
-	os << v.x << ", " << v.y << ", " << v.z << '\n';
-	return os;
-}
-
-istream& operator<<(istream& is, CVector3D& v)
-{
-	is >> v.x >> v.y >> v.z;
-	return is;
+	if (length > 0)
+		*this /= length;
 }
