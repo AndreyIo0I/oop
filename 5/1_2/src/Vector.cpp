@@ -20,22 +20,37 @@ CVector3D::CVector3D(double x0, double y0, double z0)
 
 CVector3D CVector3D::operator-() const
 {
-	return {-x, -y, -z};
+	return { -x, -y, -z };
 }
 
 CVector3D CVector3D::operator+() const
 {
-	return {x, y, z};
+	return { x, y, z };
+}
+
+CVector3D CVector3D::operator*(double value) const
+{
+	return { x * value, y * value, z * value };
+}
+
+CVector3D operator*(const double value, const CVector3D& v)
+{
+	return { v.x * value, v.y * value, v.z * value };
+}
+
+CVector3D CVector3D::operator/(double value) const
+{
+	return { x / value, y / value, z / value };
 }
 
 CVector3D CVector3D::operator-(const CVector3D& v) const
 {
-	return {x - v.x, y - v.y, z - v.z};
+	return { x - v.x, y - v.y, z - v.z };
 }
 
 CVector3D CVector3D::operator+(const CVector3D& v) const
 {
-	return {x + v.x, y + v.y, z + v.z};
+	return { x + v.x, y + v.y, z + v.z };
 }
 
 bool almostEqual(double a, double b)
@@ -55,16 +70,12 @@ bool CVector3D::operator!=(const CVector3D& v) const
 
 void CVector3D::operator+=(const CVector3D& v)
 {
-	x += v.x;
-	y += v.y;
-	z += v.z;
+	*this *= 1 + v.GetLength() / this->GetLength();
 }
 
 void CVector3D::operator-=(const CVector3D& v)
 {
-	x -= v.x;
-	y -= v.y;
-	z -= v.z;
+	*this *= 1 - v.GetLength() / this->GetLength();
 }
 
 void CVector3D::operator/=(double value)
@@ -81,11 +92,6 @@ void CVector3D::operator*=(double value)
 	z *= value;
 }
 
-CVector3D operator*(const CVector3D& v, double value)
-{
-	return {v.x * value, v.y * value, v.z * value};
-}
-
 ostream& operator<<(ostream& os, const CVector3D& v)
 {
 	os << v.x << ", " << v.y << ", " << v.z;
@@ -94,7 +100,8 @@ ostream& operator<<(ostream& os, const CVector3D& v)
 
 istream& operator>>(istream& is, CVector3D& v)
 {
-	is >> v.x >> v.y >> v.z;
+	char ch;
+	is >> v.x >> ch >> v.y >> ch >> v.z;
 	return is;
 }
 
@@ -103,9 +110,25 @@ double CVector3D::GetLength() const
 	return sqrt(x * x + y * y + z * z);
 }
 
-void CVector3D::Normalize()
+CVector3D CVector3D::Normalize(const CVector3D& v)
 {
-	double length = this->GetLength();
+	double length = v.GetLength();
 	if (length > 0)
-		*this /= length;
+		return v / length;
+	else
+		return {};
+}
+
+double CVector3D::DotProduct(const CVector3D& a, const CVector3D& b)
+{
+	return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+CVector3D CVector3D::CrossProduct(const CVector3D& a, const CVector3D& b)
+{
+	return {
+		a.y * b.z - a.z * b.y,
+		a.z * b.x - a.x * b.z,
+		a.x * b.y - a.y * b.x,
+	};
 }
