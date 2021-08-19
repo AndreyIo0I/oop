@@ -151,29 +151,33 @@ SCENARIO("Using CVector3D")
 
 		WHEN("we check Normalize()")
 		{
-			THEN ("Normalize(1, 2, 3).length == 1") {
-				CHECK(CVector3D::Normalize({1, 2, 3}).GetLength() == 1);
+			THEN ("Normalize(1, 2, 3).length == 1")
+			{
+				CHECK(CVector3D::Normalize(CVector3D(1, 2, 3)).GetLength() == 1);
 			}
 		}
 
 		WHEN("we check Normalize()")
 		{
-			THEN ("Normalize(1, 2, 3).length == 1") {
-				CHECK(CVector3D::Normalize({1, 2, 3}).GetLength() == 1);
+			THEN ("Normalize(1, 2, 3).length == 1")
+			{
+				CHECK(CVector3D::Normalize(CVector3D(1, 2, 3)).GetLength() == 1);
 			}
 		}
 
 		WHEN("we check DotProduct()")
 		{
-			THEN ("DotProduct((1, 2, 3), (0, 4, -5)) == -7") {
-				CHECK(CVector3D::DotProduct({1, 2, 3}, {0, 4, -5}) == -7);
+			THEN ("DotProduct((1, 2, 3), (0, 4, -5)) == -7")
+			{
+				CHECK(CVector3D::DotProduct(CVector3D(1, 2, 3), CVector3D(0, 4, -5)) == -7);
 			}
 		}
 
 		WHEN("we check CrossProduct()")
 		{
-			THEN ("CrossProduct((1, 2, 3), (4, 5, 6)) == (-3, 6, -3)") {
-				CHECK(CVector3D::CrossProduct({1, 2, 3}, {4, 5, 6}) == CVector3D(-3, 6, -3));
+			THEN ("CrossProduct((1, 2, 3), (4, 5, 6)) == (-3, 6, -3)")
+			{
+				CHECK(CVector3D::CrossProduct(CVector3D(1, 2, 3), CVector3D(4, 5, 6)) == CVector3D(-3, 6, -3));
 			}
 		}
 	}

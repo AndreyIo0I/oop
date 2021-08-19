@@ -4,53 +4,46 @@
 
 using namespace std;
 
-CVector3D::CVector3D()
-	: x(0)
-	, y(0)
-	, z(0)
-{
-}
-
-CVector3D::CVector3D(double x0, double y0, double z0)
-	: x(x0)
-	, y(y0)
-	, z(z0)
+CVector3D::CVector3D(double x, double y, double z)
+	: x(x)
+	, y(y)
+	, z(z)
 {
 }
 
 CVector3D CVector3D::operator-() const
 {
-	return { -x, -y, -z };
+	return CVector3D(-x, -y, -z);
 }
 
 CVector3D CVector3D::operator+() const
 {
-	return { x, y, z };
+	return CVector3D(x, y, z);
 }
 
 CVector3D CVector3D::operator*(double value) const
 {
-	return { x * value, y * value, z * value };
+	return CVector3D(x * value, y * value, z * value);
 }
 
 CVector3D operator*(const double value, const CVector3D& v)
 {
-	return { v.x * value, v.y * value, v.z * value };
+	return CVector3D(v.x * value, v.y * value, v.z * value);
 }
 
 CVector3D CVector3D::operator/(double value) const
 {
-	return { x / value, y / value, z / value };
+	return CVector3D(x / value, y / value, z / value);
 }
 
 CVector3D CVector3D::operator-(const CVector3D& v) const
 {
-	return { x - v.x, y - v.y, z - v.z };
+	return CVector3D(x - v.x, y - v.y, z - v.z);
 }
 
 CVector3D CVector3D::operator+(const CVector3D& v) const
 {
-	return { x + v.x, y + v.y, z + v.z };
+	return CVector3D(x + v.x, y + v.y, z + v.z);
 }
 
 bool almostEqual(double a, double b)
@@ -116,7 +109,7 @@ CVector3D CVector3D::Normalize(const CVector3D& v)
 	if (length > 0)
 		return v / length;
 	else
-		return {};
+		return CVector3D();
 }
 
 double CVector3D::DotProduct(const CVector3D& a, const CVector3D& b)
@@ -126,9 +119,8 @@ double CVector3D::DotProduct(const CVector3D& a, const CVector3D& b)
 
 CVector3D CVector3D::CrossProduct(const CVector3D& a, const CVector3D& b)
 {
-	return {
+	return CVector3D(
 		a.y * b.z - a.z * b.y,
 		a.z * b.x - a.x * b.z,
-		a.x * b.y - a.y * b.x,
-	};
+		a.x * b.y - a.y * b.x);
 }

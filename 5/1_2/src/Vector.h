@@ -4,8 +4,7 @@
 class CVector3D
 {
 public:
-	CVector3D();
-	CVector3D(double, double, double);
+	explicit CVector3D(double x = 0, double y = 0, double z = 0);
 	double GetLength() const;
 	double x, y, z;
 
