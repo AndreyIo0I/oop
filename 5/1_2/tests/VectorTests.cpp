@@ -6,7 +6,7 @@
 
 SCENARIO("Using CVector3D")
 {
-	GIVEN("new vector")
+	GIVEN("new vector") //todo улучшить читаемость
 	{
 		CVector3D v;
 		WHEN("we check vector")
