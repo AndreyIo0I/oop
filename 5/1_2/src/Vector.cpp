@@ -103,7 +103,7 @@ double CVector3D::GetLength() const
 	return sqrt(x * x + y * y + z * z);
 }
 
-CVector3D CVector3D::Normalize(const CVector3D& v)
+CVector3D Normalize(const CVector3D& v)
 {
 	double length = v.GetLength();
 	if (length > 0)
@@ -112,12 +112,12 @@ CVector3D CVector3D::Normalize(const CVector3D& v)
 		return CVector3D();
 }
 
-double CVector3D::DotProduct(const CVector3D& a, const CVector3D& b)
+double DotProduct(const CVector3D& a, const CVector3D& b)
 {
 	return a.x * b.x + a.y * b.y + a.z * b.z;
 }
 
-CVector3D CVector3D::CrossProduct(const CVector3D& a, const CVector3D& b)
+CVector3D CrossProduct(const CVector3D& a, const CVector3D& b)
 {
 	return CVector3D(
 		a.y * b.z - a.z * b.y,

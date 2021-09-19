@@ -153,7 +153,7 @@ SCENARIO("Using CVector3D")
 		{
 			THEN ("Normalize(1, 2, 3).length == 1")
 			{
-				CHECK(CVector3D::Normalize(CVector3D(1, 2, 3)).GetLength() == 1);
+				CHECK(Normalize(CVector3D(1, 2, 3)).GetLength() == 1);
 			}
 		}
 
@@ -161,7 +161,7 @@ SCENARIO("Using CVector3D")
 		{
 			THEN ("Normalize(1, 2, 3).length == 1")
 			{
-				CHECK(CVector3D::Normalize(CVector3D(1, 2, 3)).GetLength() == 1);
+				CHECK(Normalize(CVector3D(1, 2, 3)).GetLength() == 1);
 			}
 		}
 
@@ -169,7 +169,7 @@ SCENARIO("Using CVector3D")
 		{
 			THEN ("DotProduct((1, 2, 3), (0, 4, -5)) == -7")
 			{
-				CHECK(CVector3D::DotProduct(CVector3D(1, 2, 3), CVector3D(0, 4, -5)) == -7);
+				CHECK(DotProduct(CVector3D(1, 2, 3), CVector3D(0, 4, -5)) == -7);
 			}
 		}
 
@@ -177,7 +177,7 @@ SCENARIO("Using CVector3D")
 		{
 			THEN ("CrossProduct((1, 2, 3), (4, 5, 6)) == (-3, 6, -3)")
 			{
-				CHECK(CVector3D::CrossProduct(CVector3D(1, 2, 3), CVector3D(4, 5, 6)) == CVector3D(-3, 6, -3));
+				CHECK(CrossProduct(CVector3D(1, 2, 3), CVector3D(4, 5, 6)) == CVector3D(-3, 6, -3));
 			}
 		}
 	}
