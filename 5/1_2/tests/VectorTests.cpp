@@ -6,16 +6,13 @@
 
 SCENARIO("Using CVector3D")
 {
-	GIVEN("new vector") //todo улучшить читаемость
+	WHEN("we create empty vector")
 	{
 		CVector3D v;
-		WHEN("we check vector")
+		THEN("we have 0 vector")
 		{
-			THEN("we have 0 vector")
-			{
-				CHECK(v.GetLength() == 0);
-				CHECK((v.x == 0 && v.y == 0 && v.z == 0));
-			}
+			CHECK(v.GetLength() == 0);
+			CHECK((v.x == 0 && v.y == 0 && v.z == 0));
 		}
 	}
 
