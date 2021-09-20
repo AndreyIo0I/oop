@@ -11,9 +11,9 @@ CVector3D::CVector3D(double x, double y, double z)
 {
 }
 
-CVector3D CVector3D::operator-() const
+CVector3D operator-(const CVector3D& v)
 {
-	return CVector3D(-x, -y, -z);
+	return CVector3D(-v.x, -v.y, -v.z);
 }
 
 CVector3D CVector3D::operator+() const

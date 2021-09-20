@@ -1,10 +1,10 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include <Vector.h>
 #include <iostream>
+#include <Vector.h>
 
-SCENARIO("Using CVector3D")
+SCENARIO("Using CVector3D") // todo убрать названия переменных и значения из описаний
 {
 	WHEN("we create empty vector")
 	{
