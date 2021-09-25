@@ -1,6 +1,6 @@
-#include <utils/minMax.h>
-#include <utils/print.h>
-#include <utils/readShapes.h>
+#include <utils/minMax.hpp>
+#include <utils/print.hpp>
+#include <utils/readShapes.hpp>
 #include <vector>
 
 using namespace std;
@@ -11,6 +11,7 @@ int main()
 	PrintShapes(cout, shapes);
 	if (!shapes.empty())
 	{
+		cout << "=================================================================\n";
 		cout << "max area: " << GetMaxAreaShape(shapes)->ToString() << '\n';
 		cout << "min perimeter: " << GetMinPerimeterShape(shapes)->ToString() << '\n';
 	}
