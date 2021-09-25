@@ -6,7 +6,7 @@ set(HEADER_FILES
         figures/CTriangle.h
         figures/CRectangle.h
         figures/CCircle.h
-        )
+        utils/print.h)
 
 set(SOURCE_FILES
         figures/CPoint.cpp
@@ -14,6 +14,6 @@ set(SOURCE_FILES
         figures/CTriangle.cpp
         figures/CRectangle.cpp
         figures/CCircle.cpp
-        )
+        utils/print.cpp)
 
 add_library(src_lib STATIC ${SOURCE_FILES} ${HEADER_FILES})

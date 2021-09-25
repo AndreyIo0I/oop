@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <string>
+#include <utils/print.h>
 #include <vector>
 
 using namespace std;
@@ -111,14 +112,6 @@ vector<shared_ptr<IShape>> ReadShapes(istream& input)
 		}
 	}
 	return shapes;
-}
-
-void PrintShapes(ostream& output, const vector<shared_ptr<IShape>>& shapes)
-{
-	for (auto& shape : shapes)
-	{
-		output << shape->ToString() << '\n';
-	}
 }
 
 IShape* GetMaxAreaShape(const vector<shared_ptr<IShape>>& shapes)
