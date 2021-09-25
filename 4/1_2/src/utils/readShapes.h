@@ -1,4 +1,5 @@
 #pragma once
+#include <figures/CCircle.h>
 #include <figures/CLineSegment.h>
 #include <figures/CRectangle.h>
 #include <figures/CTriangle.h>

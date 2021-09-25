@@ -1,4 +1,6 @@
 #pragma once
+#include <algorithm>
+#include <figures/IShape.h>
 #include <vector>
 
 using namespace std;

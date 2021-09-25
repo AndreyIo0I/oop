@@ -1,7 +1,3 @@
-#include "figures/CCircle.h"
-#include <algorithm>
-#include <iostream>
-#include <string>
 #include <utils/minMax.h>
 #include <utils/print.h>
 #include <utils/readShapes.h>
