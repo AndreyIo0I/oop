@@ -1,12 +1,20 @@
 #define _USE_MATH_DEFINES
 #include "CCircle.h"
 #include <cmath>
+#include <string>
+
+using namespace std;
 
 CCircle::CCircle(CPoint center, double radius, uint32_t outlineColor, uint32_t fillColor)
 	: m_center(center)
 	, m_radius(radius)
 	, m_outlineColor(outlineColor)
 	, m_fillColor(fillColor)
+{
+}
+
+CCircle::CCircle(double x, double y, double r, uint32_t outlineColor, uint32_t fillColor)
+	: CCircle(CPoint(x, y), r, outlineColor, fillColor)
 {
 }
 
@@ -32,7 +40,7 @@ uint32_t CCircle::GetOutlineColor() const
 
 std::string CCircle::ToString() const
 {
-	return "circle";
+	return "circle: " + m_center.ToString() + ", " + to_string(m_radius) + ", " + to_string(m_outlineColor);
 }
 
 double CCircle::GetPerimeter() const

@@ -8,6 +8,11 @@ CRectangle::CRectangle(CPoint vertex1, CPoint vertex2, uint32_t outlineColor, ui
 {
 }
 
+CRectangle::CRectangle(double x1, double y1, double x2, double y2, uint32_t outlineColor, uint32_t fillColor)
+	: CRectangle(CPoint(x1, y1), CPoint(x2, y2), outlineColor, fillColor)
+{
+}
+
 CPoint CRectangle::GetLeftTop()
 {
 	return m_vertex1;
@@ -40,7 +45,7 @@ uint32_t CRectangle::GetFillColor() const
 
 std::string CRectangle::ToString() const
 {
-	return "rectangle";
+	return "rectangle: " + m_vertex1.ToString() + ", " + m_vertex2.ToString();
 }
 
 double CRectangle::GetPerimeter() const

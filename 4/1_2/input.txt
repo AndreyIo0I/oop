@@ -1,6 +1,6 @@
-line 1 2 3 4
-line 4 3 2 1
-line 5 4 3 1
+line 1 2 3 4 abcdef
+line 4 3 2 1 ffffff
+line 5 4 3 1 000003
 triangle 10 0 20 0 30 30
 circle 1 2 3
 rectangle 3 3 8 7

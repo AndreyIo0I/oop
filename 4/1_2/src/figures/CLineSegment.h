@@ -7,6 +7,7 @@ class CLineSegment : public IShape
 {
 public:
 	CLineSegment(CPoint, CPoint, uint32_t = 0);
+	CLineSegment(double, double, double, double, uint32_t = 0);
 	CPoint GetStartPoint() const;
 	CPoint GetEndPoint() const;
 	double GetArea() const override;
