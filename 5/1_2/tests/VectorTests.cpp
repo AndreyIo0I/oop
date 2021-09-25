@@ -9,65 +9,65 @@ SCENARIO("Using CVector3D") // todo убрать названия перемен
 	WHEN("we create empty vector")
 	{
 		CVector3D v;
-		THEN("we have 0 vector")
+		THEN("vector length = 0")
 		{
 			CHECK(v.GetLength() == 0);
 			CHECK((v.x == 0 && v.y == 0 && v.z == 0));
 		}
 	}
 
-	GIVEN("v1(28, 41, 64) and v2(1, 2, 2)")
+	GIVEN("v1 and v2")
 	{
 		CVector3D v1(28, 41, 64);
 		CVector3D v2(1, 2, 2);
 
-		WHEN("we check vector length")
+		WHEN("we get vector length")
 		{
-			THEN("v1(28, 41, 64).GetLength() = 81")
+			THEN("length is correct")
 			{
 				CHECK(v1.GetLength() == 81);
 			}
 		}
 
-		WHEN("we check +v")
+		WHEN("we get +vector")
 		{
-			THEN("+(28, 41, 64) == (28, 41, 64)")
+			THEN("vector didn't change")
 			{
 				CVector3D v3 = +v1;
 				CHECK((v1.x == v3.x && v1.y == v3.y && v1.z == v3.z));
 			}
 		}
 
-		WHEN("we check -v")
+		WHEN("we get -vector")
 		{
-			THEN("-(28, 41, 64) == (-28, -41, -64)")
+			THEN("new vector is negative")
 			{
 				CVector3D v3 = -v1;
 				CHECK((v1.x == -v3.x && v1.y == -v3.y && v1.z == -v3.z));
 			}
 		}
 
-		WHEN("we check operator==")
+		WHEN("we check equality")
 		{
-			THEN("(28, 41, 64) == (28, 41, 64) -> true")
+			THEN("same vectors are equals")
 			{
 				CHECK(CVector3D(28, 41, 64) == CVector3D(28, 41, 64));
 			}
 
-			THEN("(28, 41, 64) == (11, 5, 2) -> false")
+			THEN("different vectors aren't equals")
 			{
 				CHECK(!(CVector3D(28, 41, 64) == CVector3D(11, 5, 2)));
 			}
 		}
 
-		WHEN("we check !=")
+		WHEN("we check inequality")
 		{
-			THEN("(28, 41, 64) != (11, 5, 2) -> true")
+			THEN("different vectors aren't equals")
 			{
 				CHECK(CVector3D(28, 41, 64) != CVector3D(11, 5, 2));
 			}
 
-			THEN("(28, 41, 64) != (28, 41, 64) -> false")
+			THEN("same vectors are equals")
 			{
 				CHECK(!(CVector3D(28, 41, 64) != CVector3D(28, 41, 64)));
 			}
@@ -75,7 +75,7 @@ SCENARIO("Using CVector3D") // todo убрать названия перемен
 
 		WHEN("we check +=")
 		{
-			THEN("(v2 + v1).GetLength() == 84")
+			THEN("left vector is large")
 			{
 				v2 += v1;
 				CHECK(v2.GetLength() == 84);
@@ -84,7 +84,7 @@ SCENARIO("Using CVector3D") // todo убрать названия перемен
 
 		WHEN("we check -=")
 		{
-			THEN("(v2 - v1).GetLength() == 78")
+			THEN("left vector is smaller")
 			{
 				v2 -= v1;
 				CHECK(v2.GetLength() == 78);
@@ -93,7 +93,7 @@ SCENARIO("Using CVector3D") // todo убрать названия перемен
 
 		WHEN("we check *")
 		{
-			THEN("(1, 2, 2) * 2 == (2, 4, 4)") {
+			THEN("vector * int == ") {
 				CHECK(CVector3D(1, 2, 2) * 2 == CVector3D(2, 4, 4));
 			}
 
