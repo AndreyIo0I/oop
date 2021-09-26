@@ -7,16 +7,21 @@
 
 using namespace std;
 
-template <typename T>
-vector<T> getParameters(istream& input, int count = INT_MAX)
+void getParameters(istringstream& parametersInput, vector<double>& sizeParameters, vector<uint32_t>& colorParameters, int count)
 {
-	T parameter;
-	vector<T> parameters;
-
-	for (; input >> parameter && count; --count)
-		parameters.push_back(parameter);
-
-	return parameters;
+	string parameter;
+	double sizeParameter;
+	uint32_t colorParameter;
+	while (parametersInput >> parameter)
+	{
+		if (istringstream(parameter) >> sizeParameter && count) {
+			sizeParameters.push_back(sizeParameter);
+			--count;
+		}
+		else if (istringstream(parameter) >> hex >> colorParameter) {
+			colorParameters.push_back(colorParameter);
+		}
+	}
 }
 
 vector<shared_ptr<IShape>> ReadShapes(istream& input)
@@ -24,85 +29,85 @@ vector<shared_ptr<IShape>> ReadShapes(istream& input)
 	vector<shared_ptr<IShape>> shapes;
 	string shapeParametersString;
 
-	while (input)
+	while (input && !input.eof())
 	{
 		getline(input, shapeParametersString);
-		stringstream shapeParameters = stringstream(shapeParametersString);
+		auto parametersInput = istringstream(shapeParametersString);
 		string shapeType;
-		shapeParameters >> shapeType;
-		vector<double> pointParameters;
+		parametersInput >> shapeType;
+		vector<double> sizeParameters;
 		vector<uint32_t> colorParameters;
 
 		if (shapeType == "line")
 		{
-			pointParameters = getParameters<double>(shapeParameters, 4);
-			colorParameters = getParameters<uint32_t>(shapeParameters);
-			if (pointParameters.size() != 4 || colorParameters.size() > 2)
+			const int REQUIRED_PARAMETERS = 4;
+			getParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
+			if (sizeParameters.size() != REQUIRED_PARAMETERS || colorParameters.size() > 2)
 				continue;
 			switch (colorParameters.size())
 			{
 			case 0:
-				shapes.push_back(make_shared<CLineSegment>(pointParameters[0], pointParameters[1], pointParameters[2], pointParameters[3]));
+				shapes.push_back(make_shared<CLineSegment>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3]));
 				break;
 			case 1:
-				shapes.push_back(make_shared<CLineSegment>(pointParameters[0], pointParameters[1], pointParameters[2], pointParameters[3], colorParameters[0]));
+				shapes.push_back(make_shared<CLineSegment>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0]));
 				break;
 			}
 		}
 		else if (shapeType == "circle")
 		{
-			pointParameters = getParameters<double>(shapeParameters, 3);
-			colorParameters = getParameters<uint32_t>(shapeParameters >> hex);
-			if (pointParameters.size() != 3 || colorParameters.size() > 2)
+			const int REQUIRED_PARAMETERS = 3;
+			getParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
+			if (sizeParameters.size() != REQUIRED_PARAMETERS || colorParameters.size() > 2)
 				continue;
 			switch (colorParameters.size())
 			{
 			case 0:
-				shapes.push_back(make_shared<CCircle>(pointParameters[0], pointParameters[1], pointParameters[2]));
+				shapes.push_back(make_shared<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2]));
 				break;
 			case 1:
-				shapes.push_back(make_shared<CCircle>(pointParameters[0], pointParameters[1], pointParameters[2], colorParameters[0]));
+				shapes.push_back(make_shared<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], colorParameters[0]));
 				break;
 			case 2:
-				shapes.push_back(make_shared<CCircle>(pointParameters[0], pointParameters[1], pointParameters[2], colorParameters[0], colorParameters[1]));
+				shapes.push_back(make_shared<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], colorParameters[0], colorParameters[1]));
 				break;
 			}
 		}
 		else if (shapeType == "rectangle")
 		{
-			pointParameters = getParameters<double>(shapeParameters, 4);
-			colorParameters = getParameters<uint32_t>(shapeParameters >> hex);
-			if (pointParameters.size() != 4 || colorParameters.size() > 2)
+			const int REQUIRED_PARAMETERS = 4;
+			getParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
+			if (sizeParameters.size() != REQUIRED_PARAMETERS || colorParameters.size() > 2)
 				continue;
 			switch (colorParameters.size())
 			{
 			case 0:
-				shapes.push_back(make_shared<CRectangle>(pointParameters[0], pointParameters[1], pointParameters[2], pointParameters[3]));
+				shapes.push_back(make_shared<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3]));
 				break;
 			case 1:
-				shapes.push_back(make_shared<CRectangle>(pointParameters[0], pointParameters[1], pointParameters[2], pointParameters[3], colorParameters[0]));
+				shapes.push_back(make_shared<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0]));
 				break;
 			case 2:
-				shapes.push_back(make_shared<CRectangle>(pointParameters[0], pointParameters[1], pointParameters[2], pointParameters[3], colorParameters[0], colorParameters[1]));
+				shapes.push_back(make_shared<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0], colorParameters[1]));
 				break;
 			}
 		}
 		else if (shapeType == "triangle")
 		{
-			pointParameters = getParameters<double>(shapeParameters, 6);
-			colorParameters = getParameters<uint32_t>(shapeParameters >> hex);
-			if (pointParameters.size() != 6 || colorParameters.size() > 2)
+			const int REQUIRED_PARAMETERS = 6;
+			getParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
+			if (sizeParameters.size() != REQUIRED_PARAMETERS || colorParameters.size() > 2)
 				continue;
 			switch (colorParameters.size())
 			{
 			case 0:
-				shapes.push_back(make_shared<CTriangle>(pointParameters[0], pointParameters[1], pointParameters[2], pointParameters[3], pointParameters[4], pointParameters[5]));
+				shapes.push_back(make_shared<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5]));
 				break;
 			case 1:
-				shapes.push_back(make_shared<CTriangle>(pointParameters[0], pointParameters[1], pointParameters[2], pointParameters[3], pointParameters[4], pointParameters[5], colorParameters[0]));
+				shapes.push_back(make_shared<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5], colorParameters[0]));
 				break;
 			case 2:
-				shapes.push_back(make_shared<CTriangle>(pointParameters[0], pointParameters[1], pointParameters[2], pointParameters[3], pointParameters[4], pointParameters[5], colorParameters[0], colorParameters[1]));
+				shapes.push_back(make_shared<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5], colorParameters[0], colorParameters[1]));
 				break;
 			}
 		}

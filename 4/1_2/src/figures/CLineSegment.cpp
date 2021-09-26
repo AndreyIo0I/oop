@@ -1,4 +1,5 @@
 #include "CLineSegment.h"
+#include <sstream>
 #include <string>
 
 using namespace std;
@@ -37,7 +38,9 @@ double CLineSegment::GetPerimeter() const
 
 string CLineSegment::ToString() const
 {
-	return "line segment: " + m_startPoint.ToString() + ", " + m_endPoint.ToString() + ", " + to_string(m_outlineColor);
+	stringstream color;
+	color << hex << m_outlineColor;
+	return "line segment: " + m_startPoint.ToString() + ' ' + m_endPoint.ToString() + ' ' + color.str();
 }
 
 uint32_t CLineSegment::GetOutlineColor() const

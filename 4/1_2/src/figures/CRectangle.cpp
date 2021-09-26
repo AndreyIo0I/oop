@@ -1,4 +1,7 @@
 #include "CRectangle.h"
+#include <sstream>
+
+using namespace std;
 
 CRectangle::CRectangle(CPoint vertex1, CPoint vertex2, uint32_t outlineColor, uint32_t fillColor)
 	: m_vertex1(vertex1)
@@ -45,7 +48,9 @@ uint32_t CRectangle::GetFillColor() const
 
 std::string CRectangle::ToString() const
 {
-	return "rectangle: " + m_vertex1.ToString() + ", " + m_vertex2.ToString();
+	stringstream colors;
+	colors << hex <<  m_outlineColor << ' ' << m_fillColor;
+	return "rectangle: " + m_vertex1.ToString() + ' ' + m_vertex2.ToString() + ' ' + colors.str();
 }
 
 double CRectangle::GetPerimeter() const
