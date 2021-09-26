@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 using namespace std;
 
@@ -11,17 +12,22 @@ enum class Protocol
 class CHttpUrl
 {
 public:
-    explicit CHttpUrl(string const& url);
+    explicit CHttpUrl(string const&);
     CHttpUrl(string const& domain, string const& document, Protocol protocol = Protocol::HTTP);
     CHttpUrl(string const& domain, string const& document, Protocol protocol, unsigned short port);
 
-    string GetURL() const;
-    string GetDomain() const;
-    string GetDocument() const;
-    Protocol GetProtocol() const;
-    unsigned short GetPort() const;
+	Protocol GetProtocol() const;
+	string GetDomain() const;
+	unsigned short GetPort() const;
+	string GetDocument() const;
+	string GetURL() const;
 
 private:
+	void ParseProtocol(string const&, size_t&);
+	void ParseDomain(string const&, size_t&);
+	void ParsePort(string const&, size_t&);
+	void ParseDocument(string const&, size_t&);
+
     string m_url, m_domain, m_document;
     Protocol m_protocol;
     unsigned short m_port;

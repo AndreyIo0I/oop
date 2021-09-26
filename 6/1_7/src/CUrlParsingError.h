@@ -1,8 +1,10 @@
 #pragma once
+#include <stdexcept>
 
 using namespace std;
 
-class CUrlParsingError: public std::invalid_argument
+class CUrlParsingError: public invalid_argument
 {
 public:
+	explicit CUrlParsingError(const string&);
 };
