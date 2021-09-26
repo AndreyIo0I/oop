@@ -4,14 +4,22 @@
 
 using namespace std;
 
-string GetUrlInfo(const CHttpUrl& url) {
+string GetUrlInfo(const string& urlStr) {
 	string info = "protocol: ";
-	url.GetProtocol() == Protocol::HTTP
+	try
+	{
+		auto url = CHttpUrl(urlStr);
+		url.GetProtocol() == Protocol::HTTP
 		? info += "http://\n"
 		: info += "https://\n";
-	info += "domain: " + url.GetDomain() + "\n";
-	info += "port: " + to_string(url.GetPort()) + "\n";
-	info += "document: " + url.GetDocument() + "\n";
+		info += "domain: " + url.GetDomain() + "\n";
+		info += "port: " + to_string(url.GetPort()) + "\n";
+		info += "document: " + url.GetDocument() + "\n";
+	}
+	catch (const CUrlParsingError& error)
+	{
+		info = error.what();
+	}
 	return info;
 }
 
@@ -20,14 +28,7 @@ int main()
 	string url;
 	while (cin >> url)
 	{
-		try
-		{
-			cout << GetUrlInfo(CHttpUrl(url));
-		}
-		catch (const CUrlParsingError& error){
-			cout << error.what();
-			continue;
-		}
+		cout << GetUrlInfo(url);
 	}
 	return 0;
 }
