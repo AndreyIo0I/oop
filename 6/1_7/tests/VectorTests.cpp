@@ -1,181 +1,64 @@
 #define CATCH_CONFIG_MAIN
 
 #include "catch.hpp"
-#include <iostream>
 #include <CHttpUrl.h>
 
-SCENARIO("Using CVector3D") // todo убрать названия переменных и значения из описаний
+SCENARIO("Parsing urls")
 {
-	WHEN("we create empty vector")
+	WHEN("url is empty")
 	{
-		CVector3D v;
-		THEN("vector length = 0")
+		THEN("protocol not detected")
 		{
-			CHECK(v.GetLength() == 0);
-			CHECK((v.x == 0 && v.y == 0 && v.z == 0));
+			CHECK(GetUrlInfo("") == "Invalid protocol, use 'http://' or 'https://'\n");
 		}
 	}
-
-	GIVEN("v1 and v2")
+	WHEN("protocol isn't http or https")
 	{
-		CVector3D v1(28, 41, 64);
-		CVector3D v2(1, 2, 2);
-
-		WHEN("we get vector length")
+		THEN("protocol not detected")
 		{
-			THEN("length is correct")
-			{
-				CHECK(v1.GetLength() == 81);
-			}
+			CHECK(GetUrlInfo("ftp://") == "Invalid protocol, use 'http://' or 'https://'\n");
 		}
-
-		WHEN("we get +vector")
+	}
+	WHEN("protocol is incorrect")
+	{
+		THEN("protocol not detected")
 		{
-			THEN("vector didn't change")
-			{
-				CVector3D v3 = +v1;
-				CHECK((v1.x == v3.x && v1.y == v3.y && v1.z == v3.z));
-			}
+			CHECK(GetUrlInfo("(^&@9g21") == "Invalid protocol, use 'http://' or 'https://'\n");
 		}
-
-		WHEN("we get -vector")
+	}
+	WHEN("domain is empty")
+	{
+		THEN("domain is empty error appear")
 		{
-			THEN("new vector is negative")
-			{
-				CVector3D v3 = -v1;
-				CHECK((v1.x == -v3.x && v1.y == -v3.y && v1.z == -v3.z));
-			}
+			CHECK(GetUrlInfo("https:///123") == "Domain can't be empty\n");
+			CHECK(GetUrlInfo("http://") == "Domain can't be empty\n");
 		}
-
-		WHEN("we check equality")
+	}
+	WHEN("port incorrect")
+	{
+		THEN("correct error appear")
 		{
-			THEN("same vectors are equals")
-			{
-				CHECK(CVector3D(28, 41, 64) == CVector3D(28, 41, 64));
-			}
-
-			THEN("different vectors aren't equals")
-			{
-				CHECK(!(CVector3D(28, 41, 64) == CVector3D(11, 5, 2)));
-			}
+			CHECK(GetUrlInfo("https://habr.com:qwerty/ru/post/437836/") == "Invalid port\n");
+			CHECK(GetUrlInfo("https://habr.com:-2/ru/post/437836/") == "Port mustn't be negative\n");
+			CHECK(GetUrlInfo("https://habr.com:65536/ru/post/437836/") == "Port mustn't be bigger then 65535\n");
 		}
-
-		WHEN("we check inequality")
+	}
+	WHEN("url is correct")
+	{
+		THEN("info is correct")
 		{
-			THEN("different vectors aren't equals")
-			{
-				CHECK(CVector3D(28, 41, 64) != CVector3D(11, 5, 2));
-			}
-
-			THEN("same vectors are equals")
-			{
-				CHECK(!(CVector3D(28, 41, 64) != CVector3D(28, 41, 64)));
-			}
+			CHECK(GetUrlInfo("https://habr.com:3000/ru/post/437836/") == "protocol: https://\n"
+																	"domain: habr.com\n"
+																	"port: 3000\n"
+																	"document: /ru/post/437836/\n");
 		}
-
-		WHEN("we check +=")
+	}
+	WHEN("url is correct and specified port is default")
+	{
+		THEN("specified port invisible")
 		{
-			THEN("left vector is large")
-			{
-				v2 += v1;
-				CHECK(v2.GetLength() == 84);
-			}
-		}
-
-		WHEN("we check -=")
-		{
-			THEN("left vector is smaller")
-			{
-				v2 -= v1;
-				CHECK(v2.GetLength() == 78);
-			}
-		}
-
-		WHEN("we check *")
-		{
-			THEN("vector * int == ") {
-				CHECK(CVector3D(1, 2, 2) * 2 == CVector3D(2, 4, 4));
-			}
-
-			THEN("2 * (1, 2, 2) == (2, 4, 4)") {
-				CHECK(2 * CVector3D(1, 2, 2) == CVector3D(2, 4, 4));
-			}
-		}
-
-		WHEN("we check /")
-		{
-			THEN("(2, 4, 4) / 2 == (1, 2, 2)") {
-				CHECK(CVector3D(2, 4, 4) / 2 == CVector3D(1, 2, 2));
-			}
-		}
-
-		WHEN("we check *=")
-		{
-			THEN ("(1, 2, 3) *= 3 -> (3, 6, 9)") {
-				CVector3D v3(1, 2, 3);
-				v3 *= 3;
-				CHECK(v3 == CVector3D(3, 6, 9));
-			}
-		}
-
-		WHEN("we check /=")
-		{
-			THEN ("(3, 6, 9) /= 3 -> (1, 2, 3)") {
-				CVector3D v3(3, 6, 9);
-				v3 /= 3;
-				CHECK(v3 == CVector3D(1, 2, 3));
-			}
-		}
-
-		WHEN("we check <<")
-		{
-			std::ostringstream output;
-			output << CVector3D(1, 2, 5);
-			THEN ("") {
-				CHECK(output.str() == "1, 2, 5");
-			}
-		}
-
-		WHEN("we check >>")
-		{
-			CVector3D v3;
-			std::istringstream input("1, 2, 5");
-			input >> v3;
-			THEN ("") {
-				CHECK(v3 == CVector3D(1, 2, 5));
-			}
-		}
-
-		WHEN("we check Normalize()")
-		{
-			THEN ("Normalize(1, 2, 3).length == 1")
-			{
-				CHECK(Normalize(CVector3D(1, 2, 3)).GetLength() == 1);
-			}
-		}
-
-		WHEN("we check Normalize()")
-		{
-			THEN ("Normalize(1, 2, 3).length == 1")
-			{
-				CHECK(Normalize(CVector3D(1, 2, 3)).GetLength() == 1);
-			}
-		}
-
-		WHEN("we check DotProduct()")
-		{
-			THEN ("DotProduct((1, 2, 3), (0, 4, -5)) == -7")
-			{
-				CHECK(DotProduct(CVector3D(1, 2, 3), CVector3D(0, 4, -5)) == -7);
-			}
-		}
-
-		WHEN("we check CrossProduct()")
-		{
-			THEN ("CrossProduct((1, 2, 3), (4, 5, 6)) == (-3, 6, -3)")
-			{
-				CHECK(CrossProduct(CVector3D(1, 2, 3), CVector3D(4, 5, 6)) == CVector3D(-3, 6, -3));
-			}
+			CHECK(CHttpUrl("https://habr.com:443/ru/post/437836/").GetURL() == "https://habr.com/ru/post/437836/");
+			CHECK(CHttpUrl("http://habr.com:80/ru/post/437836/").GetURL() == "http://habr.com/ru/post/437836/");
 		}
 	}
 }

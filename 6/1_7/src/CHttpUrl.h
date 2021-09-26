@@ -32,3 +32,5 @@ private:
     Protocol m_protocol;
     unsigned short m_port;
 };
+
+string GetUrlInfo(const string&);
