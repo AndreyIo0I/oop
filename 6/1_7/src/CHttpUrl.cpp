@@ -28,9 +28,18 @@ CHttpUrl::CHttpUrl(const string& url)
 
 CHttpUrl::CHttpUrl(const string& domain, const string& document, Protocol protocol)
 {
+	string url = protocol == Protocol::HTTP
+		? "http://"
+		: "https://";
+	url += domain;
+	if (document[0] != '/')
+		url += '/';
+	url += document;
+	*this = CHttpUrl(url);
 }
 
 CHttpUrl::CHttpUrl(const string& domain, const string& document, Protocol protocol, unsigned short port)
+: CHttpUrl(domain + ":" + to_string(port), document, protocol)
 {
 }
 
