@@ -1,6 +1,7 @@
 #define _USE_MATH_DEFINES
 #include "CCircle.h"
 #include <cmath>
+#include <sstream>
 #include <string>
 
 using namespace std;
@@ -40,7 +41,9 @@ uint32_t CCircle::GetOutlineColor() const
 
 std::string CCircle::ToString() const
 {
-	return "circle: " + m_center.ToString() + ", " + to_string(m_radius) + ", " + to_string(m_outlineColor);
+	stringstream colors;
+	colors << hex << m_outlineColor << ' ' << m_fillColor;
+	return "circle: " + m_center.ToString() + ' ' + to_string(m_radius) + ' ' + colors.str();
 }
 
 double CCircle::GetPerimeter() const

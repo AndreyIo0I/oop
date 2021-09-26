@@ -1,4 +1,7 @@
 #include "CTriangle.h"
+#include <sstream>
+
+using namespace std;
 
 CTriangle::CTriangle(CPoint vertex1, CPoint vertex2, CPoint vertex3, uint32_t outlineColor, uint32_t fillColor)
 	: m_vertex1(vertex1)
@@ -30,7 +33,9 @@ double CTriangle::GetArea() const
 
 std::string CTriangle::ToString() const
 {
-	return "triangle: " + m_vertex1.ToString() + ' ' + m_vertex2.ToString() + ' ' + m_vertex3.ToString();
+	stringstream colors;
+	colors << hex << m_outlineColor << ' ' << m_fillColor;
+	return "triangle: " + m_vertex1.ToString() + ' ' + m_vertex2.ToString() + ' ' + m_vertex3.ToString() + ' ' + colors.str();
 }
 
 uint32_t CTriangle::GetOutlineColor() const
