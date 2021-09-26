@@ -1,3 +1,3 @@
-add_executable(tests VectorTests.cpp)
+add_executable(tests shapesTests.cpp)
 
 target_link_libraries(tests src_lib)

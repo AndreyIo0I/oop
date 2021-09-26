@@ -4,6 +4,7 @@
 #include <figures/CRectangle.h>
 #include <figures/CTriangle.h>
 #include <sstream>
+#include <vector>
 
 using namespace std;
 
