@@ -9,11 +9,11 @@ bool FindMax(const vector<T>& arr, T& maxValue, const Less& less)
 	if (arr.empty())
 		return false;
 
-	auto maxPtr = arr.begin();
+	auto maxIter = arr.begin();
 	for (auto i = arr.begin(); i != arr.end(); ++i)
-		if(less(*maxPtr, *i))
-			maxPtr = i;
+		if(less(*maxIter, *i))
+			maxIter = i;
 
-	maxValue = *maxPtr;
+	maxValue = *maxIter;
 	return true;
 }
