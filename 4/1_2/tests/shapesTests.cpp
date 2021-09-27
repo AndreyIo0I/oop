@@ -23,7 +23,8 @@ SCENARIO("Using shapes utils")
 		auto input = istringstream("line 1 2 3 4 abcdef\n"
 								   "triangle 10 0 20 0 30 30\n\n"
 								   "circle 1 2 3 ffffff 123456\n"
-								   ""
+								   "\n"
+								   "uuuuuuuu 1 2 3\n"
 								   "rectangle 1.2 @ 3 0\n"
 								   "rectangle 1.2 2 3 0 987654");
 		vector<shared_ptr<IShape>> shapes = ReadShapes(input);
