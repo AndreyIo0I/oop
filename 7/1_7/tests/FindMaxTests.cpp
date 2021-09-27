@@ -56,11 +56,8 @@ TEST_CASE("FindMax usage")
 			{"Name 3", 3, 6},
 			{"Name 4", 4, 4},
 		};
-		vector<Sportsman> vCopy = {
-			{"Name 2", 2, 8},
-			{"Name 3", 3, 6},
-			{"Name 4", 4, 4},
-		};
+		vector<Sportsman> vCopy;
+		copy(v.begin(), v.end(), back_inserter(vCopy));
 		Sportsman sportsman;
 		bool throwError = false;
 		try
