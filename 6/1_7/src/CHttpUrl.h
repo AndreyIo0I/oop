@@ -10,7 +10,7 @@ enum class Protocol
 class CHttpUrl
 {
 public:
-    CHttpUrl(std::string const&);
+    CHttpUrl(std::string const& url);
     CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol = Protocol::HTTP);
     CHttpUrl(std::string const& domain, std::string const& document, Protocol protocol, unsigned short port);
 
