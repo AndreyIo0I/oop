@@ -11,7 +11,7 @@ SCENARIO("Using shapes utils")
     WHEN("read shapes from empty input")
     {
         auto input = istringstream("");
-        vector<shared_ptr<IShape>> shapes = ReadShapes(input);
+        vector<unique_ptr<IShape>> shapes = ReadShapes(input);
         THEN("shapes are empty")
         {
             CHECK(shapes.empty());
@@ -27,7 +27,7 @@ SCENARIO("Using shapes utils")
 								   "uuuuuuuu 1 2 3\n"
 								   "rectangle 1.2 @ 3 0\n"
 								   "rectangle 1.2 2 3 0 987654");
-		vector<shared_ptr<IShape>> shapes = ReadShapes(input);
+		vector<unique_ptr<IShape>> shapes = ReadShapes(input);
 		THEN("shapes are correct")
 		{
 			CHECK(shapes[0]->ToString() == "line segment: (1.000000, 2.000000) (3.000000, 4.000000) abcdef");
@@ -39,7 +39,7 @@ SCENARIO("Using shapes utils")
 
 	WHEN("work with shapes via interface")
     {
-        vector<shared_ptr<IShape>> shapes;
+        vector<unique_ptr<IShape>> shapes;
         shapes.push_back(make_unique<CCircle>(1, 2, 3));
         shapes.push_back(make_unique<CRectangle>(1, 2, 2, 3));
         THEN("shapes are empty")
