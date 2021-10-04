@@ -5,13 +5,12 @@
 #include <string>
 
 using namespace std;
-// todo сделать методы парсинга чистыми
 CHttpUrl::CHttpUrl(const string& url)
 {
 	string lowerUrl;
 	transform(url.begin(), url.end(), back_inserter(lowerUrl), [](unsigned char c){ return tolower(c); });
 	size_t pos = 0;
-	pos = ParseProtocol(lowerUrl, pos);
+	pos = ParseProtocol(lowerUrl);
 	pos = ParseDomain(lowerUrl, pos);
 
 	if (pos < lowerUrl.size())
@@ -27,6 +26,7 @@ CHttpUrl::CHttpUrl(const string& url)
 			ParseDocument(lowerUrl, pos);
 		}
 	}
+	ConstructUrl(m_protocol, m_domain, m_port, m_document);
 }
 
 CHttpUrl::CHttpUrl(const string& domain, const string& document, Protocol protocol)
@@ -68,18 +68,16 @@ string CHttpUrl::GetDocument() const {
 
 size_t CHttpUrl::ParseProtocol(const string& url)
 {
-	if (url.find("http://") == 0)
+	string httpString = "http://";
+	if (url.find(httpString) == 0)
 	{
-		m_port = 80;
 		m_protocol = Protocol::HTTP;
-		m_url = "http://";
-		return 7;
+		return httpString.size();
 	}
-	if (url.find("https://") == 0)
+	string httpsString = "https://";
+	if (url.find(httpsString) == 0)
 	{
-		m_port = 443;
 		m_protocol = Protocol::HTTPS;
-		m_url = "https://";
 		return 8;
 	}
 	throw CUrlParsingError("Invalid protocol, use 'http://' or 'https://'\n");
@@ -93,10 +91,9 @@ size_t CHttpUrl::ParseDomain(const string& url, size_t pos)
 	{
 		throw CUrlParsingError("Domain can't be empty\n");
 	}
-	m_url += m_domain;
 	pos += m_domain.size();
 
-	m_document = "/";
+	return pos;
 }
 
 size_t CHttpUrl::ParsePort(const string& url, size_t pos)
@@ -119,17 +116,27 @@ size_t CHttpUrl::ParsePort(const string& url, size_t pos)
 	m_port = newPort;
 	pos += portStr.size();
 
-	if (!((m_port == 80 && m_protocol == Protocol::HTTP) || (m_port == 443 && m_protocol == Protocol::HTTPS)))
-	{
-		m_url += ":" + portStr;
-	}
 	return pos;
 }
 
 void CHttpUrl::ParseDocument(const string& url, size_t pos)
 {
 	m_document = url.substr(pos);
-	m_url += m_document;
+	if (m_document.empty())
+		m_document = "/";
+}
+
+void CHttpUrl::ConstructUrl(Protocol protocol, const string& domain, size_t port, string& document)
+{
+	m_url = protocol == Protocol::HTTP
+		? "http://"
+		: "https://";
+	m_url += domain;
+	if (!((port == 80 && protocol == Protocol::HTTP) || (port == 443 && protocol == Protocol::HTTPS)))
+	{
+		m_url += ":" + to_string(port);
+	}
+	m_url += document;
 }
 
 string GetUrlInfo(const string& urlStr)

@@ -25,6 +25,7 @@ private:
 	size_t ParseDomain(std::string const& url, size_t pos);
 	size_t ParsePort(std::string const& url, size_t pos);
 	void ParseDocument(std::string const& url, size_t pos);
+	void ConstructUrl(Protocol protocol, const std::string& domain, size_t port, std::string& document);
 
 	std::string m_url, m_domain, m_document;
     Protocol m_protocol = Protocol::HTTP;
