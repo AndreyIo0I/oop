@@ -1,27 +1,30 @@
 #include "CHttpUrl.h"
 #include "CUrlParsingError.h"
+#include <algorithm>
 #include <iostream>
 #include <string>
 
 using namespace std;
-
+// todo сделать методы парсинга чистыми
 CHttpUrl::CHttpUrl(const string& url)
 {
+	string lowerUrl;
+	transform(url.begin(), url.end(), back_inserter(lowerUrl), [](unsigned char c){ return tolower(c); });
 	size_t pos = 0;
-	ParseProtocol(url, pos);
-	ParseDomain(url, pos);
+	ParseProtocol(lowerUrl, pos);
+	ParseDomain(lowerUrl, pos);
 
-	if (pos < url.size())
+	if (pos < lowerUrl.size())
 	{
-		if (url[pos] == ':')
+		if (lowerUrl[pos] == ':')
 		{
 			++pos;
-			ParsePort(url, pos);
+			ParsePort(lowerUrl, pos);
 		}
 
-		if (pos < url.size())
+		if (pos < lowerUrl.size())
 		{
-			ParseDocument(url, pos);
+			ParseDocument(lowerUrl, pos);
 		}
 	}
 }
@@ -87,7 +90,7 @@ void CHttpUrl::ParseProtocol(const string& url, size_t& pos)
 
 void CHttpUrl::ParseDomain(const string& url, size_t& pos)
 {
-	size_t domainEndPos = url.find_first_of(":/", pos);
+	int domainEndPos = url.find_first_of(":/", pos); // todo size_t >= 0
 	m_domain = domainEndPos > 0 ? url.substr(pos, domainEndPos - pos) : url.substr(pos);
 	if (m_domain.empty())
 	{
@@ -96,7 +99,7 @@ void CHttpUrl::ParseDomain(const string& url, size_t& pos)
 	m_url += m_domain;
 	pos += m_domain.size();
 
-	m_document = "/";
+	m_document = "/";// todo убрать в ParseDocument
 }
 
 void CHttpUrl::ParsePort(const string& url, size_t& pos)
@@ -131,7 +134,8 @@ void CHttpUrl::ParseDocument(const string& url, size_t& pos)
 	m_url += m_document;
 }
 
-string GetUrlInfo(const string& urlStr) {
+string GetUrlInfo(const string& urlStr)
+{
 	string info = "protocol: ";
 	try
 	{

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void getParameters(istringstream& parametersInput, vector<double>& sizeParameters, vector<uint32_t>& colorParameters, int count)
+void GetParameters(istringstream& parametersInput, vector<double>& sizeParameters, vector<uint32_t>& colorParameters, int count)
 {
 	string parameter;
 	double sizeParameter;
@@ -42,7 +42,7 @@ vector<unique_ptr<IShape>> ReadShapes(istream& input)
 		if (shapeType == "line")
 		{
 			const int REQUIRED_PARAMETERS = 4;
-			getParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
+			GetParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
 			if (sizeParameters.size() != REQUIRED_PARAMETERS || colorParameters.size() > 2)
 				continue;
 			switch (colorParameters.size())
@@ -58,7 +58,7 @@ vector<unique_ptr<IShape>> ReadShapes(istream& input)
 		else if (shapeType == "circle")
 		{
 			const int REQUIRED_PARAMETERS = 3;
-			getParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
+			GetParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
 			if (sizeParameters.size() != REQUIRED_PARAMETERS || colorParameters.size() > 2)
 				continue;
 			switch (colorParameters.size())
@@ -77,7 +77,7 @@ vector<unique_ptr<IShape>> ReadShapes(istream& input)
 		else if (shapeType == "rectangle")
 		{
 			const int REQUIRED_PARAMETERS = 4;
-			getParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
+			GetParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
 			if (sizeParameters.size() != REQUIRED_PARAMETERS || colorParameters.size() > 2)
 				continue;
 			switch (colorParameters.size())
@@ -96,7 +96,7 @@ vector<unique_ptr<IShape>> ReadShapes(istream& input)
 		else if (shapeType == "triangle")
 		{
 			const int REQUIRED_PARAMETERS = 6;
-			getParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
+			GetParameters(parametersInput, sizeParameters, colorParameters, REQUIRED_PARAMETERS);
 			if (sizeParameters.size() != REQUIRED_PARAMETERS || colorParameters.size() > 2)
 				continue;
 			switch (colorParameters.size())

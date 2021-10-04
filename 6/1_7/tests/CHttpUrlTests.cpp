@@ -47,7 +47,7 @@ SCENARIO("Parsing urls")
 	{
 		THEN("info is correct")
 		{
-			CHECK(GetUrlInfo("https://habr.com:3000/ru/post/437836/") == "protocol: https://\n"
+			CHECK(GetUrlInfo("HTTPS://habr.com:3000/ru/post/437836/") == "protocol: https://\n"
 																	"domain: habr.com\n"
 																	"port: 3000\n"
 																	"document: /ru/post/437836/\n");
