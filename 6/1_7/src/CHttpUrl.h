@@ -21,10 +21,10 @@ public:
 	std::string GetURL() const;
 
 private:
-	void ParseProtocol(std::string const& url, size_t& pos);
-	void ParseDomain(std::string const& url, size_t& pos);
-	void ParsePort(std::string const& url, size_t& pos);
-	void ParseDocument(std::string const& url, size_t& pos);
+	size_t ParseProtocol(std::string const& url);
+	size_t ParseDomain(std::string const& url, size_t pos);
+	size_t ParsePort(std::string const& url, size_t pos);
+	void ParseDocument(std::string const& url, size_t pos);
 
 	std::string m_url, m_domain, m_document;
     Protocol m_protocol = Protocol::HTTP;

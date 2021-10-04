@@ -11,15 +11,15 @@ CHttpUrl::CHttpUrl(const string& url)
 	string lowerUrl;
 	transform(url.begin(), url.end(), back_inserter(lowerUrl), [](unsigned char c){ return tolower(c); });
 	size_t pos = 0;
-	ParseProtocol(lowerUrl, pos);
-	ParseDomain(lowerUrl, pos);
+	pos = ParseProtocol(lowerUrl, pos);
+	pos = ParseDomain(lowerUrl, pos);
 
 	if (pos < lowerUrl.size())
 	{
 		if (lowerUrl[pos] == ':')
 		{
 			++pos;
-			ParsePort(lowerUrl, pos);
+			pos = ParsePort(lowerUrl, pos);
 		}
 
 		if (pos < lowerUrl.size())
@@ -66,31 +66,28 @@ string CHttpUrl::GetDocument() const {
     return m_document;
 }
 
-void CHttpUrl::ParseProtocol(const string& url, size_t& pos)
+size_t CHttpUrl::ParseProtocol(const string& url)
 {
 	if (url.find("http://") == 0)
 	{
-		pos = 7;
 		m_port = 80;
 		m_protocol = Protocol::HTTP;
 		m_url = "http://";
+		return 7;
 	}
-	else if (url.find("https://") == 0)
+	if (url.find("https://") == 0)
 	{
-		pos = 8;
 		m_port = 443;
 		m_protocol = Protocol::HTTPS;
 		m_url = "https://";
+		return 8;
 	}
-	else
-	{
-		throw CUrlParsingError("Invalid protocol, use 'http://' or 'https://'\n");
-	}
+	throw CUrlParsingError("Invalid protocol, use 'http://' or 'https://'\n");
 }
 
-void CHttpUrl::ParseDomain(const string& url, size_t& pos)
+size_t CHttpUrl::ParseDomain(const string& url, size_t pos)
 {
-	int domainEndPos = url.find_first_of(":/", pos); // todo size_t >= 0
+	int domainEndPos = url.find_first_of(":/", pos);
 	m_domain = domainEndPos > 0 ? url.substr(pos, domainEndPos - pos) : url.substr(pos);
 	if (m_domain.empty())
 	{
@@ -99,12 +96,12 @@ void CHttpUrl::ParseDomain(const string& url, size_t& pos)
 	m_url += m_domain;
 	pos += m_domain.size();
 
-	m_document = "/";// todo убрать в ParseDocument
+	m_document = "/";
 }
 
-void CHttpUrl::ParsePort(const string& url, size_t& pos)
+size_t CHttpUrl::ParsePort(const string& url, size_t pos)
 {
-	size_t portEndPos = url.find_first_of('/', pos);
+	int portEndPos = url.find_first_of('/', pos);
 	string portStr = portEndPos > 0 ? url.substr(pos, portEndPos - pos) : url.substr(pos);
 	int newPort;
 	try
@@ -126,9 +123,10 @@ void CHttpUrl::ParsePort(const string& url, size_t& pos)
 	{
 		m_url += ":" + portStr;
 	}
+	return pos;
 }
 
-void CHttpUrl::ParseDocument(const string& url, size_t& pos)
+void CHttpUrl::ParseDocument(const string& url, size_t pos)
 {
 	m_document = url.substr(pos);
 	m_url += m_document;
