@@ -29,8 +29,8 @@ private:
 	void ParseDocument(string const&, size_t&);
 
     string m_url, m_domain, m_document;
-    Protocol m_protocol;
-    unsigned short m_port;
+    Protocol m_protocol = Protocol::HTTP;
+    unsigned short m_port = 0;
 };
 
 string GetUrlInfo(const string&);
