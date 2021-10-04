@@ -1,6 +1,7 @@
 #pragma once
 #include <algorithm>
 #include <new>
+#include <stdexcept>
 
 template <typename T>
 class CMyArray
@@ -145,10 +146,16 @@ public:
 
 	T& operator[](size_t i)
 	{
+		if (i >= GetSize())
+			throw std::out_of_range("out of range");
+		return m_begin[i];
 	}
 
 	T& operator[](size_t i) const
 	{
+		if (i >= GetSize())
+			throw std::out_of_range("out of range");
+		return m_begin[i];
 	}
 
 	CMyArray& operator=(const CMyArray& arr)

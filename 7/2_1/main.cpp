@@ -7,6 +7,14 @@ int main()
 {
 	CMyArray<int> arr;
 	arr.Append(1);
-	cout << arr[1] << '\n';
+	try
+	{
+		cout << arr[0] << '\n';
+		cout << arr[1] << '\n';
+	}
+	catch (exception& e)
+	{
+		cout << e.what();
+	}
 	return 0;
 }
