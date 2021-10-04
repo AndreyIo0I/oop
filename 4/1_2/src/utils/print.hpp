@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void PrintShapes(ostream& output, const vector<shared_ptr<IShape>>& shapes)
+void PrintShapes(ostream& output, const vector<unique_ptr<IShape>>& shapes)
 {
 	for (auto& shape : shapes)
 	{

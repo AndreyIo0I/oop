@@ -25,9 +25,9 @@ void getParameters(istringstream& parametersInput, vector<double>& sizeParameter
 	}
 }
 
-vector<shared_ptr<IShape>> ReadShapes(istream& input)
+vector<unique_ptr<IShape>> ReadShapes(istream& input)
 {
-	vector<shared_ptr<IShape>> shapes;
+	vector<unique_ptr<IShape>> shapes;
 	string shapeParametersString;
 
 	while (input && !input.eof())
@@ -48,10 +48,10 @@ vector<shared_ptr<IShape>> ReadShapes(istream& input)
 			switch (colorParameters.size())
 			{
 			case 0:
-				shapes.push_back(make_shared<CLineSegment>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3]));
+				shapes.push_back(make_unique<CLineSegment>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3]));
 				break;
 			case 1:
-				shapes.push_back(make_shared<CLineSegment>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0]));
+				shapes.push_back(make_unique<CLineSegment>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0]));
 				break;
 			}
 		}
@@ -64,13 +64,13 @@ vector<shared_ptr<IShape>> ReadShapes(istream& input)
 			switch (colorParameters.size())
 			{
 			case 0:
-				shapes.push_back(make_shared<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2]));
+				shapes.push_back(make_unique<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2]));
 				break;
 			case 1:
-				shapes.push_back(make_shared<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], colorParameters[0]));
+				shapes.push_back(make_unique<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], colorParameters[0]));
 				break;
 			case 2:
-				shapes.push_back(make_shared<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], colorParameters[0], colorParameters[1]));
+				shapes.push_back(make_unique<CCircle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], colorParameters[0], colorParameters[1]));
 				break;
 			}
 		}
@@ -83,13 +83,13 @@ vector<shared_ptr<IShape>> ReadShapes(istream& input)
 			switch (colorParameters.size())
 			{
 			case 0:
-				shapes.push_back(make_shared<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3]));
+				shapes.push_back(make_unique<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3]));
 				break;
 			case 1:
-				shapes.push_back(make_shared<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0]));
+				shapes.push_back(make_unique<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0]));
 				break;
 			case 2:
-				shapes.push_back(make_shared<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0], colorParameters[1]));
+				shapes.push_back(make_unique<CRectangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], colorParameters[0], colorParameters[1]));
 				break;
 			}
 		}
@@ -102,13 +102,13 @@ vector<shared_ptr<IShape>> ReadShapes(istream& input)
 			switch (colorParameters.size())
 			{
 			case 0:
-				shapes.push_back(make_shared<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5]));
+				shapes.push_back(make_unique<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5]));
 				break;
 			case 1:
-				shapes.push_back(make_shared<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5], colorParameters[0]));
+				shapes.push_back(make_unique<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5], colorParameters[0]));
 				break;
 			case 2:
-				shapes.push_back(make_shared<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5], colorParameters[0], colorParameters[1]));
+				shapes.push_back(make_unique<CTriangle>(sizeParameters[0], sizeParameters[1], sizeParameters[2], sizeParameters[3], sizeParameters[4], sizeParameters[5], colorParameters[0], colorParameters[1]));
 				break;
 			}
 		}

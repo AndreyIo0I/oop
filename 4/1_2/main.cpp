@@ -7,7 +7,7 @@ using namespace std;
 
 int main()
 {
-	vector<shared_ptr<IShape>> shapes = ReadShapes(cin);
+	vector<unique_ptr<IShape>> shapes = ReadShapes(cin);
 	PrintShapes(cout, shapes);
 	if (!shapes.empty())
 	{
