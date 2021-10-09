@@ -12,20 +12,8 @@ CHttpUrl::CHttpUrl(const string& url)
 	size_t pos = 0;
 	pos = ParseProtocol(lowerUrl);
 	pos = ParseDomain(lowerUrl, pos);
-
-	if (pos < lowerUrl.size())
-	{
-		if (lowerUrl[pos] == ':')
-		{
-			++pos;
-			pos = ParsePort(lowerUrl, pos);
-		}
-
-		if (pos < lowerUrl.size())
-		{
-			ParseDocument(lowerUrl, pos);
-		}
-	}
+	pos = ParsePort(lowerUrl, pos);
+	ParseDocument(lowerUrl, pos);
 	ConstructUrl(m_protocol, m_domain, m_port, m_document);
 }
 
@@ -98,6 +86,11 @@ size_t CHttpUrl::ParseDomain(const string& url, size_t pos)
 
 size_t CHttpUrl::ParsePort(const string& url, size_t pos)
 {
+	if (pos >= url.size() || url.at(pos) != ':') {
+		m_port = m_protocol == Protocol::HTTP ? 80 : 443;
+		return pos;
+	}
+	++pos;
 	int portEndPos = url.find_first_of('/', pos);
 	string portStr = portEndPos > 0 ? url.substr(pos, portEndPos - pos) : url.substr(pos);
 	int newPort;
