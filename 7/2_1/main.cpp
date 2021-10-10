@@ -1,20 +1,15 @@
 #include "CMyArray.h"
 #include <iostream>
 
-using namespace std;
-
 int main()
 {
 	CMyArray<int> arr;
+	arr.Append(3);
 	arr.Append(1);
-	try
+	arr.Append(2);
+	for (int val : arr)
 	{
-		cout << arr[0] << '\n';
-		cout << arr[1] << '\n';
-	}
-	catch (exception& e)
-	{
-		cout << e.what();
+		std::cout << val << '\n';
 	}
 	return 0;
 }

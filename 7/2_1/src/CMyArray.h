@@ -1,4 +1,5 @@
 #pragma once
+
 #include <algorithm>
 #include <new>
 #include <stdexcept>
@@ -24,6 +25,11 @@ class CMyArray
 		{
 		}
 
+		pointer operator->()
+		{
+			return &this;
+		}
+
 		reference& operator*() const
 		{
 			return *m_item;
@@ -35,15 +41,73 @@ class CMyArray
 			return *this;
 		}
 
+		MyType& operator-=(difference_type offset)
+		{
+			m_item -= offset;
+			return *this;
+		}
+
 		MyType operator+(difference_type offset) const
 		{
 			MyType self(m_item);
 			return self += offset;
 		}
 
+		MyType operator-(difference_type offset) const
+		{
+			MyType self(m_item);
+			return self -= offset;
+		}
+
+		reference& operator[](difference_type offset)
+		{
+			return *(m_item[offset]);
+		}
+
+		bool operator==(const MyType& itr) const
+		{
+			return m_item == itr.m_item;
+		}
+
+		bool operator!=(const MyType& itr)  const
+		{
+			return m_item != itr.m_item;
+		}
+
+		MyType operator++()
+		{
+			++m_item;
+			return *this;
+		}
+
+		const MyType operator++(int)
+		{
+			MyType tmp(*this);
+			++m_item;
+			return tmp;
+		}
+
+		MyType operator--()
+		{
+			--m_item;
+			return *this;
+		}
+
+		const MyType operator--(int)
+		{
+			MyType tmp(*this);
+			--m_item;
+			return tmp;
+		}
+
 		friend MyType operator+(difference_type offset, const MyType& it)
 		{
 			return it + offset;
+		}
+
+		friend MyType operator-(difference_type offset, const MyType& it)
+		{
+			return it - offset;
 		}
 
 	public:
@@ -78,11 +142,11 @@ public:
 		}
 	}
 
-	CMyArray(const CMyArray&& arr)
+	CMyArray(const CMyArray&& arr) noexcept
+		: m_begin(arr.m_begin)
+		, m_end(arr.m_end)
+		, m_endOfCapacity(arr.m_endOfCapacity)
 	{
-		m_begin = arr.m_begin;
-		m_end = arr.m_end;
-		m_endOfCapacity = arr.m_endOfCapacity;
 		arr.m_begin = nullptr;
 		arr.m_end = nullptr;
 		arr.m_endOfCapacity = nullptr;
@@ -160,18 +224,72 @@ public:
 
 	CMyArray& operator=(const CMyArray& arr)
 	{
+		if (&arr != this)
+		{
+			DeleteItems(m_begin, m_end);
+			*this = CMyArray(arr);
+		}
+		return *this;
 	}
 
-	CMyArray& operator=(CMyArray&& arr)
+	CMyArray& operator=(CMyArray&& arr) noexcept
 	{
+		if (&arr != this)
+		{
+			DeleteItems(m_begin, m_end);
+			*this = CMyArray(arr);
+		}
+		return *this;
 	}
 
 	void Resize(size_t size)
 	{
+		if (size > GetCapacity())
+		{
+			auto newBegin = RawAlloc(size);
+			auto newEnd = m_end;
+			try
+			{
+				CopyItems(m_begin, m_end, newBegin, newEnd);
+				for (; newEnd != m_end; ++newEnd)
+					new (newEnd)T();
+				DeleteItems(m_begin, m_end);
+				m_begin = newBegin;
+				m_end = newEnd;
+				m_endOfCapacity = newEnd;
+			}
+			catch (...)
+			{
+				DeleteItems(newBegin, newEnd);
+				throw;
+			}
+		}
+		else if (size > GetSize())
+		{
+			auto newEnd = m_end;
+			try
+			{
+				for (; newEnd != m_end + size; ++newEnd)
+					new (newEnd)T();
+			}
+			catch (...)
+			{
+				DestroyItems(m_end, newEnd);
+				throw;
+			}
+		}
+		else
+		{
+			auto newEnd = m_begin + size;
+			DestroyItems(newEnd, m_end);
+			m_end = newEnd;
+		}
 	}
 
 	void Clear()
 	{
+		DestroyItems(m_begin, m_end);
+		m_end = m_begin;
 	}
 
 	~CMyArray()
@@ -182,23 +300,24 @@ public:
 	using iterator = IteratorBase<false>;
 	using const_iterator = IteratorBase<true>;
 
-	iterator begin()
-	{
-		return { m_begin };
-	}
+	iterator begin() { return { m_begin }; }
 
-	const_iterator begin() const
-	{
-		return { m_begin };
-	}
+	const_iterator cbegin() const { return { m_begin }; }
 
-	const_iterator cbegin() const
-	{
-		return { m_begin };
-	}
+	iterator end() { return { m_end }; }
+
+	const_iterator cend() const { return { m_end }; }
+
+	auto rbegin() { return std::reverse_iterator<T*>(m_end); }
+
+	auto crbegin() const { return std::reverse_iterator<T*>(m_end); }
+
+	auto rend() { return std::reverse_iterator<T*>(m_begin); }
+
+	auto crend() const { return std::reverse_iterator<T*>(m_begin); }
 
 private:
-	static void DeleteItems(T* begin, T* end)
+	static void DeleteItems(T *begin, T *end)
 	{
 		// Разрушаем старые элементы
 		DestroyItems(begin, end);
