@@ -18,7 +18,7 @@ Dictionary::Dictionary(const string& filename)
 	}
 }
 
-void Dictionary::Run(std::istringstream& input, std::ostringstream& output)
+void Dictionary::Run(std::istream& input, std::ostream& output)
 {
 	string inputStr;
 	bool changed = false;
