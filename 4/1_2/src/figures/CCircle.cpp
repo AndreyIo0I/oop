@@ -24,21 +24,6 @@ CPoint CCircle::GetCenter()
 	return m_center;
 }
 
-double CCircle::GetRadius() const
-{
-	return m_radius;
-}
-
-uint32_t CCircle::GetFillColor() const
-{
-	return m_fillColor;
-}
-
-uint32_t CCircle::GetOutlineColor() const
-{
-	return m_outlineColor;
-}
-
 std::string CCircle::ToString() const
 {
 	stringstream colors;

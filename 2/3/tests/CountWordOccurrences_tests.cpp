@@ -3,7 +3,7 @@
 #include "../src/Dictionary.h"
 #include <fstream>
 
-TEST_CASE("Given an existing translation")
+TEST_CASE("Existing translation")
 {
 	const std::string FILENAME = R"(C:\Users\andrb\CLionProjects\oop\2\3\tests\testTranslations.txt)";
 	std::ofstream file(FILENAME);
@@ -18,7 +18,7 @@ TEST_CASE("Given an existing translation")
 	CHECK(output.str() == "321\nДо свидания.\n");
 }
 
-TEST_CASE("Given an new translation")
+TEST_CASE("New translation")
 {
 	const std::string FILENAME = R"(C:\Users\andrb\CLionProjects\oop\2\3\tests\testTranslations.txt)";
 	std::ofstream file(FILENAME);

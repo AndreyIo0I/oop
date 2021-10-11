@@ -35,6 +35,7 @@ void Dictionary::Run(std::istringstream& input, std::ostringstream& output)
 					ofstream storage(m_filename);
 					for (const auto& val : m_translations)
 					{
+						cout << val.first << "@@@" << val.second << '\n';
 						storage << val.first << "@" << val.second << '\n';
 					}
 					output << "Изменения сохранены. ";

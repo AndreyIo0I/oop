@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 // todo устранить дублирование в чтении и в методах
 int main()
 {
