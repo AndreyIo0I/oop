@@ -8,7 +8,7 @@ int main(int argc, char* argv[])
 {
 	if (argc != 2)
 	{
-		cout << "Передайте только название файла\n";
+		cout << "specify filename\n";
 		return 0;
 	}
 	string filename = argv[1];
