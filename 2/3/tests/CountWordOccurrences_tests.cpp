@@ -1,35 +1,37 @@
 #define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-#include "../src/CountWordOccurrences.h"
+#include "../src/Dictionary.h"
+#include <fstream>
 
-SCENARIO("CountWordOccurrences")
+TEST_CASE("Given an existing translation")
 {
+	const std::string FILENAME = R"(C:\Users\andrb\CLionProjects\oop\2\3\tests\testTranslations.txt)";
+	std::ofstream file(FILENAME);
+	file << "123@321\n";
+	file.close();
+	Dictionary dictionary(FILENAME);
 	std::ostringstream output;
-    GIVEN("an empty string")
-    {
-		std::istringstream input("");
-        WHEN("given \"\"")
-        {
-        	THEN("result is empty too")
-            {
-				CountWordOccurrences(input, output);
-                CHECK(output.str().empty());
-				CHECK(output.eof());
-            }
-        }
-    }
+	std::istringstream input("123\n...\n");
 
-    GIVEN("string with some words")
-    {
-		std::istringstream input("1 line\n2 line");
-        WHEN("CountWordOccurrences is called")
-        {
-            THEN("words are counted right")
-            {
-				CountWordOccurrences(input, output);
-				CHECK(output.str() == "1 -> 1\n2 -> 1\nline -> 2\n");
-				CHECK(output.eof());
-            }
-        }
-    }
+	dictionary.Run(input, output);
+
+	CHECK(output.str() == "321\nДо свидания.\n");
+}
+
+TEST_CASE("Given an new translation")
+{
+	const std::string FILENAME = R"(C:\Users\andrb\CLionProjects\oop\2\3\tests\testTranslations.txt)";
+	std::ofstream file(FILENAME);
+	file << "ball@мяч\n";
+	file.close();
+	Dictionary dictionary(FILENAME);
+	std::ostringstream output;
+	std::istringstream input("321\n123\n...\ny\n");
+
+	dictionary.Run(input, output);
+
+	CHECK(output.str() == "Неизвестное слово \"321\". Введите перевод или пустую строку для отказа.\n"
+						  "Слово \"321\" сохранено в словаре как \"123\".\n"
+						  "В словарь были внесены изменения. Введите Y или y для сохранения перед выходом.\n"
+						  "Изменения сохранены. До свидания.\n");
 }
