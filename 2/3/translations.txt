@@ -1,4 +1,6 @@
 The Red Square@ расна€ ѕлощадь
 ball@м€ч
+hello@привет
 meat@м€со
+the red square@красна€ площадь
 кот@cat

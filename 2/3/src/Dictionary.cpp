@@ -18,7 +18,7 @@ Dictionary::Dictionary(const string& filename)
 	}
 }
 
-void Dictionary::Run(std::istream& input, std::ostream& output)
+void Dictionary::Run(std::istream& input, std::ostream& output) // todo разбить
 {
 	string inputStr;
 	bool changed = false;

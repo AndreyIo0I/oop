@@ -5,7 +5,7 @@
 
 TEST_CASE("Existing translation")
 {
-	const std::string FILENAME = R"(C:\Users\andrb\CLionProjects\oop\2\3\tests\testTranslations.txt)";
+	const std::string FILENAME = std::string(TEST_RESOURCE_DIR) + "/testTranslations.txt";
 	std::ofstream file(FILENAME);
 	file << "123@321\n";
 	file.close();
@@ -20,7 +20,7 @@ TEST_CASE("Existing translation")
 
 TEST_CASE("New translation")
 {
-	const std::string FILENAME = R"(C:\Users\andrb\CLionProjects\oop\2\3\tests\testTranslations.txt)";
+	const std::string FILENAME = std::string(TEST_RESOURCE_DIR) + "/testTranslations.txt";
 	std::ofstream file(FILENAME);
 	file << "ball@ìÿ÷\n";
 	file.close();

@@ -2,7 +2,7 @@
 #include <map>
 #include <iostream>
 
-class Dictionary
+class Dictionary // todo разделить взаимодействие с пользователем и логику
 {
 public:
 	Dictionary(const std::string& filename);
