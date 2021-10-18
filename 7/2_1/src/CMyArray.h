@@ -261,7 +261,7 @@ public:
 		if (size > GetCapacity())
 		{
 			auto newBegin = RawAlloc(size);
-			auto newEnd = m_end;
+			auto newEnd = newBegin;
 			try
 			{
 				CopyItems(m_begin, m_end, newBegin, newEnd);
