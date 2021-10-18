@@ -228,18 +228,6 @@ public:
 		return m_begin[i];
 	}
 
-	CMyArray& operator=(const CMyArray& arr)
-	{
-		if (&arr != this)
-		{
-			CMyArray tmpArr(arr);
-			std::swap(m_begin, tmpArr.m_begin);
-			std::swap(m_end, tmpArr.m_end);
-			std::swap(m_endOfCapacity, tmpArr.m_endOfCapacity);
-		}
-		return *this;
-	}
-
 	CMyArray& operator=(CMyArray&& arr) noexcept
 	{
 		if (&arr != this)
@@ -252,6 +240,15 @@ public:
 			arr.m_begin = nullptr;
 			arr.m_end = nullptr;
 			arr.m_endOfCapacity = nullptr;
+		}
+		return *this;
+	}
+
+	CMyArray& operator=(const CMyArray& arr)
+	{
+		if (&arr != this)
+		{
+			*this = CMyArray(arr);
 		}
 		return *this;
 	}
