@@ -1,6 +1,7 @@
 #pragma once
 
 #include <algorithm>
+#include <iostream>
 #include <new>
 #include <stdexcept>
 
@@ -57,6 +58,11 @@ class CMyArray
 		{
 			MyType self(m_item);
 			return self -= offset;
+		}
+
+		difference_type operator-(const MyType& other) const
+		{
+			return m_item - other.m_item;
 		}
 
 		reference& operator[](difference_type offset)
@@ -226,8 +232,10 @@ public:
 	{
 		if (&arr != this)
 		{
-			DeleteItems(m_begin, m_end);
-			*this = CMyArray(arr);
+			CMyArray tmpArr(arr);
+			std::swap(m_begin, tmpArr.m_begin);
+			std::swap(m_end, tmpArr.m_end);
+			std::swap(m_endOfCapacity, tmpArr.m_endOfCapacity);
 		}
 		return *this;
 	}
@@ -237,7 +245,13 @@ public:
 		if (&arr != this)
 		{
 			DeleteItems(m_begin, m_end);
-			*this = CMyArray(arr);
+			m_begin = arr.m_begin;
+			m_end = arr.m_end;
+			m_endOfCapacity = arr.m_endOfCapacity;
+
+			arr.m_begin = nullptr;
+			arr.m_end = nullptr;
+			arr.m_endOfCapacity = nullptr;
 		}
 		return *this;
 	}
@@ -251,7 +265,7 @@ public:
 			try
 			{
 				CopyItems(m_begin, m_end, newBegin, newEnd);
-				for (; newEnd != m_end; ++newEnd)
+				for (; newEnd != newBegin + size; ++newEnd)
 					new (newEnd)T();
 				DeleteItems(m_begin, m_end);
 				m_begin = newBegin;
@@ -269,7 +283,7 @@ public:
 			auto newEnd = m_end;
 			try
 			{
-				for (; newEnd != m_end + size; ++newEnd)
+				for (; newEnd != m_begin + size; ++newEnd)
 					new (newEnd)T();
 			}
 			catch (...)
