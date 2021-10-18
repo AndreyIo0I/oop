@@ -27,9 +27,15 @@ TEST_CASE("Using MyArray")
 	SECTION("array resize")
 	{
 		CMyArray<double> arr;
+		arr.Resize(20);
+		arr[1] = 4;
+		CHECK(arr.GetSize() == 20);
+		CHECK(arr[10] == 0);
 		arr.Resize(2);
+		CHECK(arr[1] == 4);
 		CHECK(arr.GetSize() == 2);
-		CHECK(arr[0] == 0);
+
+		CHECK_THROWS_AS(arr[10], std::out_of_range);
 	}
 
 	SECTION("array copy")
