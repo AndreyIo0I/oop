@@ -10,14 +10,14 @@ enum class Protocol
 	HTTPS,
 	FTP
 };
-
+//  todo переписать с исключениями и конкретныыми ошибками
 Protocol DefineProtocol(const std::string& protocol)
 {
 	if (protocol == "http")
 		return Protocol::HTTP;
 	else if (protocol == "https")
 		return Protocol::HTTPS;
-	else
+	else // todo добавить проверку
 		return Protocol::FTP;
 }
 
