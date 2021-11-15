@@ -134,7 +134,7 @@ public:
 		const auto size = arr.GetSize();
 		if (size != 0)
 		{
-			m_begin = RawAlloc(size);
+			m_begin = RawAlloc(size); // todo проверить с выбросом ошибки
 			try
 			{
 				CopyItems(arr.m_begin, arr.m_end, m_begin, m_end);
@@ -142,7 +142,7 @@ public:
 			}
 			catch (...)
 			{
-				DeleteItems(m_begin, m_end);
+				DeleteItems(m_begin, m_end); // todo добавить восстановление прошлых элементов
 				throw;
 			}
 		}
