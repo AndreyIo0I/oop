@@ -5,7 +5,7 @@
 #include <set>
 #include <vector>
 
-std::optional<int> getUpperBound(const std::string& str)
+std::optional<int> GetUpperBound(const std::string& str)
 {
 	int upperBound = 0;
 	try
@@ -25,21 +25,24 @@ std::optional<int> getUpperBound(const std::string& str)
 	return upperBound;
 }
 
-std::set<int> getPrimeNumbers(int upperBound)
+std::set<int> GetPrimeNumbers(int upperBound)
 {
-	std::vector<bool> sieve(upperBound + 1, true);
 	std::set<int> primeNumbers;
 
-	for (int i = 2; i <= upperBound; ++i)
-	{
-		if (sieve[i])
-			for (int j = i + i; j <= upperBound; j += i)
-				sieve[j] = false;
-	}
+	if (upperBound > 1) {
+		std::vector<bool> sieve(upperBound + 1, true);
 
-	for (int i = 2; i <= upperBound; ++i)
-		if (sieve[i])
-			primeNumbers.insert(i);
+		for (int i = 2; i <= upperBound; ++i)
+		{
+			if (sieve[i])
+				for (int j = i + i; j <= upperBound; j += i)
+					sieve[j] = false;
+		}
+
+		for (int i = 2; i <= upperBound; ++i)
+			if (sieve[i])
+				primeNumbers.insert(i);
+	}
 
 	return primeNumbers;
 }

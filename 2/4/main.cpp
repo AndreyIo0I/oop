@@ -10,11 +10,11 @@ int main(int argc, char* argv[])
 		cout << "specify upper bound\n";
 		return 0;
 	}
-	auto upperBound = getUpperBound(argv[1]);
+	auto upperBound = GetUpperBound(argv[1]);
 
 	if (upperBound)
 	{
-		set<int> primes = getPrimeNumbers(*upperBound);
+		set<int> primes = GetPrimeNumbers(*upperBound);
 		cout << primes.size() << endl;
 	}
     return 0;
